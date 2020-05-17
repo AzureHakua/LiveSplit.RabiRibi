@@ -88,7 +88,9 @@ init
 	vars.xtile = (int)(current.xpos/1280) + current.mapid * 25;
 	vars.ytile = (int)(current.ypos/720);
 	vars.reloading = false;
+	
 	vars.noahSkipped = false;
+	vars.chocolateSplit = false;
 	vars.noah1Time = 0;
 	vars.noah2Time = 0;
 	vars.computerTime = 0;
@@ -123,7 +125,14 @@ start
 	if(current.musicid == 53
 		&& old.blackness == 0
 		&& current.blackness >= 100000
-	){ return true; }
+	){ 
+		vars.noahSkipped = false;
+		vars.chocolateSplit = false;
+		vars.noah1Time = 0;
+		vars.noah2Time = 0;
+		vars.computerTime = 0;
+		return true; 
+	}
 }
 
 reset
@@ -135,7 +144,14 @@ reset
 	*/
 	if(current.musicid == 45
 		|| current.musicid == 46
-	){ return true;	}
+	){ 
+		vars.noahSkipped = false;
+		vars.chocolateSplit = false;
+		vars.noah1Time = 0;
+		vars.noah2Time = 0;
+		vars.computerTime = 0;
+		return true; 
+	}
 	return false;
 }
 
@@ -180,7 +196,8 @@ split
 		if(settings["Chocolate"]
 			&& (65 <= vars.xtile && vars.xtile <= 67)
 			&& (13 <= vars.ytile && vars.ytile <= 15)
-		){ return true; }
+			&& !vars.chocolateSplit
+		){ return vars.chocolateSplit = true; }
 		
 		if(settings["Cicini"]
 			&& (21 <= vars.xtile && vars.xtile <= 23)
@@ -350,7 +367,7 @@ split
 	}
 	//Misc
 	if(settings["Computer"]
-		&& vars.xtile == 140
+		&& (139 <= vars.xtile && vars.xtile <= 141)
 		&& vars.ytile == 12
 		&& (current.moneytotal - old.moneytotal == 17500)
 		&& (current.playtime > vars.computerTime)
@@ -370,21 +387,26 @@ split
 		&& vars.ytile == 2
 		&& !vars.noahSkipped
 	){ return vars.noahSkipped = true; }
-	
+	//Randomizer
 	if(settings["EasterEgg"]
+		&& !vars.reloading
 		&& (current.eggtotal - old.eggtotal == 1)
+		&& (current.eggtotal > old.eggtotal)
+		&& (current.moneytotal - old.moneytotal == 1500)
 	){ return true; }
 	
 	if(settings["EasterEgg5"]
 		&& !settings["EasterEgg"]
 		&& current.eggtotal == 5
 		&& old.eggtotal == 4
+		&& (current.moneytotal - old.moneytotal == 1500)
 	){ return true; }
 	
 	if(settings["EasterEgg7"]
 		&& !settings["EasterEgg"]
 		&& current.eggtotal == 7
 		&& old.eggtotal == 6
+		&& (current.moneytotal - old.moneytotal == 1500)
 	){ return true; }
 	
 	return false;
