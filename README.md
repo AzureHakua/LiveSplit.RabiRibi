@@ -7,7 +7,7 @@ General Notes:
 -The default settings are 10TM ready for BunStrike routes (any difficulty should work).  
 -Start timing uses screen blackness while the menu music is playing to determine start time. This will trigger when starting any file, so take note of that.  
 -Reset will trigger when the title music plays. Recommended to disable this if you are running any category with ASG or playing Randomizer where you might need to reload to the title screen to load an Auto Save.  
- 
+ -The Egg options will split when you obtain an egg, so if you reload to a state before obtaining an egg, be mindful of that.
  
 Regarding Boss Skips
 ===
@@ -19,7 +19,6 @@ Regarding Boss Skips
  
 -If you are performing Syaro Skip, you can use the Syaro Skip option INSTEAD of the Syaro option. The Syaro Skip option will split when you leave System Interior. If you have both options checked, you will split twice when performing Syaro Skip.  
 -The Noah Skip option will split as you transition to the room where Noah 3 is. Use this option for both Noah Skip and BunStrike Zip routes.  
--The Computer option will split when you obtain 17,500 EN (in a single frame), which is how much money Cicini gives you for finding the Computer in Exotic Laboratory. Implementing more safety checks here in the future.  
  
  
 Regarding In-game Time
