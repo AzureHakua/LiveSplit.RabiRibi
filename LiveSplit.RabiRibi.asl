@@ -9,11 +9,11 @@ state("rabiribi", "v1.99t")
 	uint minimapstate: "rabiribi.exe", 0x16E7D9C; //0 is bottom, 1 is top
 	
 	uint musicid: "rabiribi.exe", 0x84C888;
-  uint bgfilterid: "rabiribi.exe", 0x172B4F8; //0 is default, 6 is alius
+  	uint bgfilterid: "rabiribi.exe", 0x172B4F8; //0 is default, 6 is alius
 
 	uint mapid: "rabiribi.exe", 0xD87FA4;
 	float xpos: "rabiribi.exe", 0x01689290, 0x10;
-  float ypos: "rabiribi.exe", 0x01689290, 0x14;
+  	float ypos: "rabiribi.exe", 0x01689290, 0x14;
 	
 	uint moneytotal: "rabiribi.exe", 0x167C10C;
 }
