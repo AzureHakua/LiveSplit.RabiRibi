@@ -14,11 +14,11 @@ General Notes:
  
 Regarding Boss Skips
 ===
--Performing a boss skip with their split option checked will split when the boss despawns. Basically as soon as you screen transition for the following bosses:
-    -Nixie
-    -Syaro
-    -Aruraune
-    -Kotri 3
+-Performing a boss skip with their split option checked will split when the boss despawns. Basically as soon as you screen transition for the following bosses:  
+    -Nixie  
+    -Syaro  
+    -Aruraune  
+    -Kotri 3  
  
 -If you are performing Syaro Skip, you can use the Syaro Skip option INSTEAD of the Syaro option. The Syaro Skip option will split when you leave System Interior. If you have both options checked, you will split twice when performing Syaro Skip.
  
@@ -33,8 +33,7 @@ Regarding In-game Time
  
 -If you would like to display T.Runtime instead, which is the total frame count the game is running for that run (menus, cutscenes, and loads included), then open the RASA script in any text editing program and delete the "//" at the start of line 106 and move them to the start of line 107. "//" just hides the code from being read. (alternatively you can just retype the "play" part to "run". See below for what I mean:
  
-//vars.igt = (int) current.truntime * 1000 / 60;
-
+//vars.igt = (int) current.truntime * 1000 / 60;  
 vars.igt = (int) current.tplaytime * 1000 / 60;
  
  
