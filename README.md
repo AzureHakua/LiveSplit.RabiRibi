@@ -34,6 +34,7 @@ Regarding In-game Time
 -If you would like to display T.Runtime instead, which is the total frame count the game is running for that run (menus, cutscenes, and loads included), then open the RASA script in any text editing program and delete the "//" at the start of line 106 and move them to the start of line 107. "//" just hides the code from being read. (alternatively you can just retype the "play" part to "run". See below for what I mean:
  
 //vars.igt = (int) current.truntime * 1000 / 60;
+
 vars.igt = (int) current.tplaytime * 1000 / 60;
  
  
