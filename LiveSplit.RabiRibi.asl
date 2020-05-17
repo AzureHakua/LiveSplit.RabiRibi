@@ -392,21 +392,21 @@ split
 		&& !vars.reloading
 		&& (current.eggtotal - old.eggtotal == 1)
 		&& (current.eggtotal > old.eggtotal)
-		&& (current.moneytotal - old.moneytotal == 1500)
+		&& (current.moneytotal - old.moneytotal >= 1500)
 	){ return true; }
 	
 	if(settings["EasterEgg5"]
 		&& !settings["EasterEgg"]
 		&& current.eggtotal == 5
 		&& old.eggtotal == 4
-		&& (current.moneytotal - old.moneytotal == 1500)
+		&& (current.moneytotal - old.moneytotal >= 1500)
 	){ return true; }
 	
 	if(settings["EasterEgg7"]
 		&& !settings["EasterEgg"]
 		&& current.eggtotal == 7
 		&& old.eggtotal == 6
-		&& (current.moneytotal - old.moneytotal == 1500)
+		&& (current.moneytotal - old.moneytotal >= 1500)
 	){ return true; }
 	
 	return false;
