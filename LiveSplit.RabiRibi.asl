@@ -9,13 +9,14 @@ state("rabiribi", "v1.99t")
 	uint minimapstate: "rabiribi.exe", 0x16E7D9C; //0 is bottom, 1 is top
 	
 	uint musicid: "rabiribi.exe", 0x84C888;
-  	uint bgfilterid: "rabiribi.exe", 0x172B4F8; //0 is default, 6 is alius
+    uint bgfilterid: "rabiribi.exe", 0x172B4F8; //0 is default, 6 is alius
 
 	uint mapid: "rabiribi.exe", 0xD87FA4;
 	float xpos: "rabiribi.exe", 0x01689290, 0x10;
-  	float ypos: "rabiribi.exe", 0x01689290, 0x14;
+    float ypos: "rabiribi.exe", 0x01689290, 0x14;
 	
 	uint moneytotal: "rabiribi.exe", 0x167C10C;
+	uint eggtotal: "rabiribi.exe", 0x167CC14;
 }
 
 startup
@@ -67,6 +68,7 @@ startup
 	settings.CurrentDefaultParent = "other";
 		settings.Add("skips", true, "Boss Skips");
 		settings.Add("lab", true, "Exotic Lab");
+		settings.Add("rando", false, "Randomizer");
 			settings.CurrentDefaultParent = "skips";
 				settings.Add("SyaroSkip", true, "Syaro Skip");
 				settings.Add("NoahSkip", true, "Noah Skip");
@@ -74,6 +76,10 @@ startup
 				settings.Add("BigBox", false, "Mr. Big Box");
 				settings.Add("RainbowMaid", false, "Rainbow Maid");
 				settings.Add("Computer", true, "Computer");
+			settings.CurrentDefaultParent = "rando";
+				settings.Add("EasterEgg", false, "Every Egg");
+				settings.Add("EasterEgg5", true, "5 Eggs");
+				settings.Add("EasterEgg7", true, "7 Eggs");
 }
 
 init
@@ -364,6 +370,22 @@ split
 		&& vars.ytile == 2
 		&& !vars.noahSkipped
 	){ return vars.noahSkipped = true; }
+	
+	if(settings["EasterEgg"]
+		&& (current.eggtotal - old.eggtotal == 1)
+	){ return true; }
+	
+	if(settings["EasterEgg5"]
+		&& !settings["EasterEgg"]
+		&& current.eggtotal == 5
+		&& old.eggtotal == 4
+	){ return true; }
+	
+	if(settings["EasterEgg7"]
+		&& !settings["EasterEgg"]
+		&& current.eggtotal == 7
+		&& old.eggtotal == 6
+	){ return true; }
 	
 	return false;
 }
