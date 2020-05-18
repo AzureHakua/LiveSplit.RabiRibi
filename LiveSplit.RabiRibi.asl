@@ -374,7 +374,7 @@ split
 	if(settings["EasterEgg"]
 		&& (current.eggtotal > vars.maxEggs)
 	){ 
-		vars.maxEggs++
+		vars.maxEggs++;
 		return true;
 	}
 	
