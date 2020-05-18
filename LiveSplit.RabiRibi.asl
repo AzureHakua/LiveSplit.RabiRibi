@@ -89,11 +89,8 @@ init
 	vars.ytile = (int)(current.ypos/720);
 	vars.reloading = false;
 	
-	vars.noahSkipped = false;
-	vars.chocolateSplit = false;
-	vars.noah1Time = 0;
-	vars.noah2Time = 0;
-	vars.computerTime = 0;
+	vars.hasSplit = new bool[6];
+	vars.maxEggs = 0;
 }
 
 update
@@ -126,11 +123,8 @@ start
 		&& old.blackness == 0
 		&& current.blackness >= 100000
 	){ 
-		vars.noahSkipped = false;
-		vars.chocolateSplit = false;
-		vars.noah1Time = 0;
-		vars.noah2Time = 0;
-		vars.computerTime = 0;
+		vars.hasSplit = new bool[6];
+		vars.maxEggs = 0;
 		return true; 
 	}
 }
@@ -145,11 +139,8 @@ reset
 	if(current.musicid == 45
 		|| current.musicid == 46
 	){ 
-		vars.noahSkipped = false;
-		vars.chocolateSplit = false;
-		vars.noah1Time = 0;
-		vars.noah2Time = 0;
-		vars.computerTime = 0;
+		vars.hasSplit = new bool[6];
+		vars.maxEggs = 0;
 		return true; 
 	}
 	return false;
@@ -196,8 +187,8 @@ split
 		if(settings["Chocolate"]
 			&& (65 <= vars.xtile && vars.xtile <= 67)
 			&& (13 <= vars.ytile && vars.ytile <= 15)
-			&& !vars.chocolateSplit
-		){ return vars.chocolateSplit = true; }
+			&& !vars.hasSplit[0]
+		){ return vars.hasSplit[0] = true; }
 		
 		if(settings["Cicini"]
 			&& (21 <= vars.xtile && vars.xtile <= 23)
@@ -251,7 +242,7 @@ split
 		){ return true; }
 		
 		if(settings["Pandora"]
-			&& (44 <= vars.xtile && vars.xtile <= 45)
+			&& (vars.xtile == 45)
 			&& (12 <= vars.ytile && vars.ytile <= 14)
 		){ return true; }
 		
@@ -350,63 +341,53 @@ split
 		&& (217 <= vars.xtile && vars.xtile <= 219)
 		&& (1 <= vars.ytile && vars.ytile <= 2)
 		&& (current.musicid == 43 && old.musicid == 37)
-		&& (current.playtime > vars.noah1Time)
-	){ 
-		vars.noah1Time = current.playtime;
-		return true;
-	}
+		&& !vars.hasSplit[1]
+	){ return vars.hasSplit[1] = true; }
 	
 	if(settings["Noah2"]
 		&& (215 <= vars.xtile && vars.xtile <= 219)
 		&& (1 <= vars.ytile && vars.ytile <= 2)
 		&& (current.musicid == 42 && old.musicid == 43)
-		&& (current.playtime > vars.noah2Time)
-	){
-		vars.noah2Time = current.playtime;
-		return true;
-	}
+		&& !vars.hasSplit[2]
+	){ return vars.hasSplit[2] = true; }
 	//Misc
 	if(settings["Computer"]
 		&& (139 <= vars.xtile && vars.xtile <= 141)
 		&& vars.ytile == 12
 		&& (current.moneytotal - old.moneytotal == 17500)
-		&& (current.playtime > vars.computerTime)
-	){ 
-		vars.computerTime = current.playtime;
-		return true;
-	}
+		&& !vars.hasSplit[3]
+	){ return vars.hasSplit[3] = true; }
 	//Skips
 	if(settings["SyaroSkip"]
 		&& vars.xtile == 117
 		&& vars.ytile == 16
 		&& (current.musicid == 19 && old.musicid == 48)
-	){ return true; }
+		&& !vars.hasSplit[4]
+	){ return vars.hasSplit[4] = true; }
 	
 	if(settings["NoahSkip"]
 		&& vars.xtile == 216
 		&& vars.ytile == 2
-		&& !vars.noahSkipped
-	){ return vars.noahSkipped = true; }
+		&& !vars.hasSplit[5]
+	){ return vars.hasSplit[5] = true; }
 	//Randomizer
 	if(settings["EasterEgg"]
-		&& !vars.reloading
-		&& (current.eggtotal - old.eggtotal == 1)
-		&& (current.eggtotal > old.eggtotal)
-		&& (current.moneytotal - old.moneytotal >= 1500)
-	){ return true; }
+		&& (current.eggtotal > vars.maxEggs)
+	){ 
+		vars.maxEggs++
+		return true;
+	}
 	
 	if(settings["EasterEgg5"]
 		&& !settings["EasterEgg"]
 		&& current.eggtotal == 5
 		&& old.eggtotal == 4
-		&& (current.moneytotal - old.moneytotal >= 1500)
 	){ return true; }
 	
 	if(settings["EasterEgg7"]
 		&& !settings["EasterEgg"]
 		&& current.eggtotal == 7
 		&& old.eggtotal == 6
-		&& (current.moneytotal - old.moneytotal >= 1500)
 	){ return true; }
 	
 	return false;
