@@ -6,7 +6,7 @@ General Notes:
 -Only works on version 1.99t of Rabi-Ribi  
 -The default settings are 10TM ready for BunStrike routes (any difficulty should work).  
 -Start timing uses screen blackness while the menu music is playing to determine start time. This will trigger when starting any file, so take note of that.  
--Reset will trigger when the title music plays. Recommended to disable this if you are running any category with ASG or playing Randomizer where you might need to reload to the title screen to load an Auto Save.  
+-Reset will trigger when the title music plays. Recommended to disable this (checkbox above the rest of the options) if you are running any category with ASG or playing Randomizer where you might need to reload to the title screen to load an Auto Save.  
  -The Egg options will split when you obtain an egg, so if you reload to a state before obtaining an egg, be mindful of that.
  
 Regarding Boss Skips
