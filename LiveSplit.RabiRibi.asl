@@ -361,7 +361,7 @@ split
 	
 	if(settings["Sandbag"]
 		&& vars.xtile == 52
-		&& vars.ytile == 5
+		&& (4 <= vars.ytile && vars.ytile <= 7)
 		&& (current.musicid == 13 && old.musicid == 59)
 		&& !vars.hasSplit[4]
 	){ return vars.hasSplit[4] = true; }
