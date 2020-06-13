@@ -76,6 +76,7 @@ startup
 				settings.Add("BigBox", false, "Mr. Big Box");
 				settings.Add("RainbowMaid", false, "Rainbow Maid");
 				settings.Add("Computer", true, "Computer");
+				settings.Add("Sandbag", false, "Sandbag");
 			settings.CurrentDefaultParent = "rando";
 				settings.Add("EasterEgg", false, "Every Egg");
 				settings.Add("EasterEgg5", true, "5 Eggs");
@@ -89,7 +90,7 @@ init
 	vars.ytile = (int)(current.ypos/720);
 	vars.reloading = false;
 	
-	vars.hasSplit = new bool[6];
+	vars.hasSplit = new bool[7];
 	vars.maxEggs = 0;
 }
 
@@ -123,7 +124,7 @@ start
 		&& old.blackness == 0
 		&& current.blackness >= 100000
 	){ 
-		vars.hasSplit = new bool[6];
+		vars.hasSplit = new bool[7];
 		vars.maxEggs = 0;
 		return true; 
 	}
@@ -139,7 +140,7 @@ reset
 	if(current.musicid == 45
 		|| current.musicid == 46
 	){ 
-		vars.hasSplit = new bool[6];
+		vars.hasSplit = new bool[7];
 		vars.maxEggs = 0;
 		return true; 
 	}
@@ -357,19 +358,26 @@ split
 		&& (current.moneytotal - old.moneytotal == 17500)
 		&& !vars.hasSplit[3]
 	){ return vars.hasSplit[3] = true; }
+	
+	if(settings["Sandbag"]
+		&& vars.xtile == 52
+		&& vars.ytile == 5
+		&& (current.musicid == 13 && old.musicid == 59)
+		&& !vars.hasSplit[4]
+	){ return vars.hasSplit[4] = true; }
 	//Skips
 	if(settings["SyaroSkip"]
 		&& vars.xtile == 117
 		&& vars.ytile == 16
 		&& (current.musicid == 19 && old.musicid == 48)
-		&& !vars.hasSplit[4]
-	){ return vars.hasSplit[4] = true; }
+		&& !vars.hasSplit[5]
+	){ return vars.hasSplit[5] = true; }
 	
 	if(settings["NoahSkip"]
 		&& vars.xtile == 216
 		&& vars.ytile == 2
-		&& !vars.hasSplit[5]
-	){ return vars.hasSplit[5] = true; }
+		&& !vars.hasSplit[6]
+	){ return vars.hasSplit[6] = true; }
 	//Randomizer
 	if(settings["EasterEgg"]
 		&& (current.eggtotal > vars.maxEggs)
