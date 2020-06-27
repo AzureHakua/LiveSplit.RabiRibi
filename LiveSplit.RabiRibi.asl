@@ -92,6 +92,7 @@ init
 	
 	vars.hasSplit = new bool[7];
 	vars.maxEggs = 0;
+	vars.framecounter = 0;
 }
 
 update
@@ -126,6 +127,7 @@ start
 	){ 
 		vars.hasSplit = new bool[7];
 		vars.maxEggs = 0;
+		vars.framecounter = 0;
 		return true; 
 	}
 }
@@ -142,13 +144,17 @@ reset
 	){ 
 		vars.hasSplit = new bool[7];
 		vars.maxEggs = 0;
-		return true; 
+		vars.framecounter = 0;
+		return true;
 	}
 	return false;
 }
 
 split
 {
+	if(vars.framecounter < 100000) {
+		vars.framecounter++;
+	}
 	vars.xtile = (int)(current.xpos/1280) + current.mapid * 25;
 	vars.ytile = (int)(current.ypos/720);
 	vars.reloading = current.playtime == 0 || (current.playtime < old.playtime);
@@ -380,7 +386,7 @@ split
 	){ return vars.hasSplit[6] = true; }
 	//Randomizer
 	if(settings["EasterEgg"]
-		&& (current.eggtotal > vars.maxEggs)
+		&& (current.eggtotal > vars.maxEggs && vars.framecounter >= refreshRate)
 	){ 
 		vars.maxEggs++;
 		return true;
