@@ -73,6 +73,8 @@ startup
 			settings.CurrentDefaultParent = "skips";
 				settings.Add("SyaroSkip", true, "Syaro Skip");
 				settings.Add("NoahSkip", true, "Noah Skip");
+				settings.Add("Kotri3Skip", false, "Kotri 3 Skip");
+				settings.Add("ArurauneSkip", false, "Aruraune Skip");
 			settings.CurrentDefaultParent = "lab";
 				settings.Add("BigBox", false, "Mr. Big Box");
 				settings.Add("RainbowMaid", false, "Rainbow Maid");
@@ -92,7 +94,7 @@ init
 	vars.ytile = (int)(current.ypos/720);
 	vars.reloading = false;
 	
-	vars.hasSplit = new bool[7];
+	vars.hasSplit = new bool[9];
 	vars.maxEggs = 0;
 	vars.framecounter = 0;
 }
@@ -127,7 +129,7 @@ start
 		&& old.blackness == 0
 		&& current.blackness >= 100000
 	){ 
-		vars.hasSplit = new bool[7];
+		vars.hasSplit = new bool[9];
 		vars.maxEggs = 0;
 		vars.framecounter = 0;
 		return true; 
@@ -144,7 +146,7 @@ reset
 	if(current.musicid == 45
 		|| current.musicid == 46
 	){ 
-		vars.hasSplit = new bool[7];
+		vars.hasSplit = new bool[9];
 		vars.maxEggs = 0;
 		vars.framecounter = 0;
 		return true;
@@ -157,6 +159,7 @@ split
 	if(vars.framecounter < 100000) {
 		vars.framecounter++;
 	}
+	vars.xtile_old = vars.xtile;
 	vars.xtile = (int)(current.xpos/1280) + current.mapid * 25;
 	vars.ytile = (int)(current.ypos/720);
 	vars.reloading = current.playtime == 0 || (current.playtime < old.playtime);
@@ -386,6 +389,20 @@ split
 		&& vars.ytile == 2
 		&& !vars.hasSplit[6]
 	){ return vars.hasSplit[6] = true; }
+	
+	if(settings["Kotri3Skip"]
+		&& (vars.xtile_old == 185 && vars.xtile == 186)
+		&& vars.ytile == 4
+		&& current.musicid == 38
+		&& !vars.hasSplit[7]
+	) { return vars.hasSplit[7] = true; }
+	
+	if(settings["ArurauneSkip"]
+		&& vars.xtile == 6
+		&& vars.ytile == 4
+		&& current.musicid == 47
+		&& !vars.hasSplit[8]
+	) { return vars.hasSplit[8] = true; }
 	//Randomizer
 	if(settings["EasterEgg"]
 		&& (current.eggtotal > vars.maxEggs && vars.framecounter >= refreshRate)
