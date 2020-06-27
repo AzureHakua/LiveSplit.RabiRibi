@@ -17,6 +17,7 @@ state("rabiribi", "v1.99t")
 	
 	uint moneytotal: "rabiribi.exe", 0x167C10C;
 	uint eggtotal: "rabiribi.exe", 0x167CC14;
+	uint trophy: "rabiribi.exe", 0x1679F94;
 }
 
 startup
@@ -68,7 +69,7 @@ startup
 	settings.CurrentDefaultParent = "other";
 		settings.Add("skips", true, "Boss Skips");
 		settings.Add("lab", true, "Exotic Lab");
-		settings.Add("rando", false, "Randomizer");
+		settings.Add("rando", false, "Custom Map");
 			settings.CurrentDefaultParent = "skips";
 				settings.Add("SyaroSkip", true, "Syaro Skip");
 				settings.Add("NoahSkip", true, "Noah Skip");
@@ -81,6 +82,7 @@ startup
 				settings.Add("EasterEgg", false, "Every Egg");
 				settings.Add("EasterEgg5", true, "5 Eggs");
 				settings.Add("EasterEgg7", true, "7 Eggs");
+				settings.Add("Trophy", false, "Trophy");
 }
 
 init
@@ -404,5 +406,9 @@ split
 		&& old.eggtotal == 6
 	){ return true; }
 	
+	if(settings["Trophy"]
+		&& current.trophy == 1
+		&& old.trophy == 0
+	){ return true; }
 	return false;
 }
