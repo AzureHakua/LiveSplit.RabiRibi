@@ -17,6 +17,11 @@ state("rabiribi", "v1.99t")
 	
 	uint moneytotal: "rabiribi.exe", 0x167C10C;
 	uint eggtotal: "rabiribi.exe", 0x167CC14;
+	uint trophy: "rabiribi.exe", 0x1679F94;
+	
+	uint menucursor: "rabiribi.exe", 0x016E8F68;
+	uint savecursor: "rabiribi.exe", 0x0172C29C;
+	float artbooktimer: "rabiribi.exe", 0x01689290, 0xB504;
 }
 
 startup
@@ -68,10 +73,12 @@ startup
 	settings.CurrentDefaultParent = "other";
 		settings.Add("skips", true, "Boss Skips");
 		settings.Add("lab", true, "Exotic Lab");
-		settings.Add("rando", false, "Randomizer");
+		settings.Add("rando", false, "Custom Map");
 			settings.CurrentDefaultParent = "skips";
 				settings.Add("SyaroSkip", true, "Syaro Skip");
 				settings.Add("NoahSkip", true, "Noah Skip");
+				settings.Add("Kotri3Skip", false, "Kotri 3 Skip");
+				settings.Add("ArurauneSkip", false, "Aruraune Skip");
 			settings.CurrentDefaultParent = "lab";
 				settings.Add("BigBox", false, "Mr. Big Box");
 				settings.Add("RainbowMaid", false, "Rainbow Maid");
@@ -81,6 +88,7 @@ startup
 				settings.Add("EasterEgg", false, "Every Egg");
 				settings.Add("EasterEgg5", true, "5 Eggs");
 				settings.Add("EasterEgg7", true, "7 Eggs");
+				settings.Add("Trophy", false, "Trophy");
 }
 
 init
@@ -90,8 +98,9 @@ init
 	vars.ytile = (int)(current.ypos/720);
 	vars.reloading = false;
 	
-	vars.hasSplit = new bool[7];
+	vars.hasSplit = new bool[9];
 	vars.maxEggs = 0;
+	vars.framecounter = 0;
 }
 
 update
@@ -120,12 +129,20 @@ start
 		a sharp increase in screen blackness indicates that the game has started
 		this also triggers for starting the game from a file, so it's not perfect
 	*/
-	if(current.musicid == 53
+	if((current.musicid == 53
+		&& current.menucursor <= 2
+		&& current.savecursor == 0
 		&& old.blackness == 0
 		&& current.blackness >= 100000
-	){ 
-		vars.hasSplit = new bool[7];
+	) || (
+		// for artbook things
+		(current.musicid == 57 || current.musicid == 58)
+		&& old.artbooktimer == 0
+		&& current.artbooktimer > 0
+	)){ 
+		vars.hasSplit = new bool[9];
 		vars.maxEggs = 0;
+		vars.framecounter = 0;
 		return true; 
 	}
 }
@@ -140,15 +157,20 @@ reset
 	if(current.musicid == 45
 		|| current.musicid == 46
 	){ 
-		vars.hasSplit = new bool[7];
+		vars.hasSplit = new bool[9];
 		vars.maxEggs = 0;
-		return true; 
+		vars.framecounter = 0;
+		return true;
 	}
 	return false;
 }
 
 split
 {
+	if(vars.framecounter < 100000) {
+		vars.framecounter++;
+	}
+	vars.xtile_old = vars.xtile;
 	vars.xtile = (int)(current.xpos/1280) + current.mapid * 25;
 	vars.ytile = (int)(current.ypos/720);
 	vars.reloading = current.playtime == 0 || (current.playtime < old.playtime);
@@ -378,9 +400,23 @@ split
 		&& vars.ytile == 2
 		&& !vars.hasSplit[6]
 	){ return vars.hasSplit[6] = true; }
+	
+	if(settings["Kotri3Skip"]
+		&& (vars.xtile_old == 185 && vars.xtile == 186)
+		&& vars.ytile == 4
+		&& current.musicid == 38
+		&& !vars.hasSplit[7]
+	) { return vars.hasSplit[7] = true; }
+	
+	if(settings["ArurauneSkip"]
+		&& vars.xtile == 6
+		&& vars.ytile == 4
+		&& current.musicid == 47
+		&& !vars.hasSplit[8]
+	) { return vars.hasSplit[8] = true; }
 	//Randomizer
 	if(settings["EasterEgg"]
-		&& (current.eggtotal > vars.maxEggs)
+		&& (current.eggtotal > vars.maxEggs && vars.framecounter >= refreshRate)
 	){ 
 		vars.maxEggs++;
 		return true;
@@ -398,5 +434,9 @@ split
 		&& old.eggtotal == 6
 	){ return true; }
 	
+	if(settings["Trophy"]
+		&& current.trophy == 1
+		&& old.trophy == 0
+	){ return true; }
 	return false;
 }
