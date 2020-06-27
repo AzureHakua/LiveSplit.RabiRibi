@@ -18,6 +18,10 @@ state("rabiribi", "v1.99t")
 	uint moneytotal: "rabiribi.exe", 0x167C10C;
 	uint eggtotal: "rabiribi.exe", 0x167CC14;
 	uint trophy: "rabiribi.exe", 0x1679F94;
+	
+	uint menucursor: "rabiribi.exe", 0x016E8F68;
+	uint savecursor: "rabiribi.exe", 0x0172C29C;
+	float artbooktimer: "rabiribi.exe", 0x01689290, 0xB504;
 }
 
 startup
@@ -125,10 +129,17 @@ start
 		a sharp increase in screen blackness indicates that the game has started
 		this also triggers for starting the game from a file, so it's not perfect
 	*/
-	if(current.musicid == 53
+	if((current.musicid == 53
+		&& current.menucursor <= 2
+		&& current.savecursor == 0
 		&& old.blackness == 0
 		&& current.blackness >= 100000
-	){ 
+	) || (
+		// for artbook things
+		(current.musicid == 57 || current.musicid == 58)
+		&& old.artbooktimer == 0
+		&& current.artbooktimer > 0
+	)){ 
 		vars.hasSplit = new bool[9];
 		vars.maxEggs = 0;
 		vars.framecounter = 0;
