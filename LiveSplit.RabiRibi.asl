@@ -27,6 +27,8 @@ state("rabiribi", "v1.99t")
 
 startup
 {
+	settings.Add("practice", false, "Practice Mode");
+	settings.SetToolTip("practice", "Practice Mode will start the timer when starting a boss and reset upon reloading. For use with the boss settings below.")
 	settings.Add("main", true, "Main Bosses");
 	settings.Add("other", true, "Other Settings");
 	
@@ -121,8 +123,8 @@ gameTime
 		submissions require, but truntime might be more useful for
 		personal use as it's a more accurate real time
 	*/
-	vars.igt = (int) current.truntime * 1000 / 60;
-	//vars.igt = (int) current.tplaytime * 1000 / 60;
+	//vars.igt = (int) current.truntime * 1000 / 60;
+	vars.igt = (int) current.tplaytime * 1000 / 60;
 	return new TimeSpan(0,0,0,0,vars.igt);
 }
 
@@ -147,6 +149,14 @@ start
 		vars.framecounter = 0;
 		return true; 
 	}
+	//boss practice
+	if(settings["practice"]
+		&& !vars.reloading
+		&& (current.minimapstate > old.minimapstate)
+	){
+		vars.hasSplit = new bool[9];
+		return true;
+	}
 }
 
 reset
@@ -164,6 +174,13 @@ reset
 		vars.hasSplit = new bool[9];
 		vars.maxEggs = 0;
 		vars.framecounter = 0;
+		return true;
+	}
+	//boss practice
+	if(settings["practice"] && vars.reloading)
+	{
+		vars.hasSplit = new bool[9];
+		vars.reloading = false;
 		return true;
 	}
 	return false;
