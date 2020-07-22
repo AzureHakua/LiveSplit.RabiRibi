@@ -19,8 +19,9 @@ state("rabiribi", "v1.99t")
 	uint eggtotal: "rabiribi.exe", 0x167CC14;
 	uint trophy: "rabiribi.exe", 0x1679F94;
 	
-	uint menucursor: "rabiribi.exe", 0x016E8F68;
+	uint menustate: "rabiribi.exe", 0x0172C294;
 	uint savecursor: "rabiribi.exe", 0x0172C29C;
+	float artbookactivetime: "rabiribi.exe", 0x01689290, 0x134C;
 	float artbooktimer: "rabiribi.exe", 0x01689290, 0xB504;
 }
 
@@ -37,6 +38,8 @@ startup
 				settings.Add("Cocoa1", true, "Prologue Cocoa");
 				settings.Add("Ribbon", true, "Ribbon");
 				settings.Add("Ashuri1", true, "Prologue Ashuri");
+				settings.Add("ForestUPRPRC", false, "Forest UPRPRC");
+				settings.Add("BeachUPRPRC", false, "Beach UPRPRC");
 			settings.CurrentDefaultParent = "town";
 				settings.Add("Aruraune", false, "Aruraune");
 				settings.Add("Ashuri2", false, "Ashuri 2");
@@ -129,14 +132,13 @@ start
 		a sharp increase in screen blackness indicates that the game has started
 		this also triggers for starting the game from a file, so it's not perfect
 	*/
-	if((current.musicid == 53
-		&& current.menucursor <= 2
+	if((current.menustate == 12
 		&& current.savecursor == 0
 		&& old.blackness == 0
 		&& current.blackness >= 100000
 	) || (
 		// for artbook things
-		(current.musicid == 57 || current.musicid == 58)
+		current.artbookactivetime >= 60
 		&& old.artbooktimer == 0
 		&& current.artbooktimer > 0
 	)){ 
@@ -154,9 +156,11 @@ reset
 		disable this feature if you're running
 		a category where save & quit is involved
 	*/
-	if(current.musicid == 45
-		|| current.musicid == 46
-	){ 
+	if((current.menustate == 2
+	) || (
+		old.artbookactivetime < 60
+		&& current.artbookactivetime >= 60
+	)){ 
 		vars.hasSplit = new bool[9];
 		vars.maxEggs = 0;
 		vars.framecounter = 0;
@@ -195,6 +199,19 @@ split
 			&& (31 <= vars.xtile && vars.xtile <= 33)
 			&& (10 <= vars.ytile && vars.ytile <= 11)
 			&& current.musicid == 44
+		){ return true; }
+		
+		if(settings["ForestUPRPRC"]
+			&& old.musicid == 36
+			&& vars.xtile_old < 25
+			&& vars.xtile == 49
+			&& vars.ytile == 11
+		){ return true; }
+			
+		if(settings["BeachUPRPRC"]
+			&& (43 <= vars.xtile && vars.xtile <= 45)
+			&& (10 <= vars.ytile && vars.ytile <= 11)
+			&& old.musicid == 36
 		){ return true; }
 		//Town Members
 		if(settings["Aruraune"]
@@ -402,7 +419,7 @@ split
 	){ return vars.hasSplit[6] = true; }
 	
 	if(settings["Kotri3Skip"]
-		&& (vars.xtile_old == 185 && vars.xtile == 186)
+		&& (vars.xtile_old == 185 && vars.xtile != 185)
 		&& vars.ytile == 4
 		&& current.musicid == 38
 		&& !vars.hasSplit[7]
