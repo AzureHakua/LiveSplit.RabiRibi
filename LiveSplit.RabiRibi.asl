@@ -37,6 +37,8 @@ startup
 				settings.Add("Cocoa1", true, "Prologue Cocoa");
 				settings.Add("Ribbon", true, "Ribbon");
 				settings.Add("Ashuri1", true, "Prologue Ashuri");
+				settings.Add("ForestUPRPRC", false, "Forest UPRPRC");
+				settings.Add("BeachUPRPRC", false, "Beach UPRPRC");
 			settings.CurrentDefaultParent = "town";
 				settings.Add("Aruraune", false, "Aruraune");
 				settings.Add("Ashuri2", false, "Ashuri 2");
@@ -195,6 +197,19 @@ split
 			&& (31 <= vars.xtile && vars.xtile <= 33)
 			&& (10 <= vars.ytile && vars.ytile <= 11)
 			&& current.musicid == 44
+		){ return true; }
+		
+		if(settings["ForestUPRPRC"]
+			&& old.musicid == 36
+			&& vars.xtile_old < 25
+			&& vars.xtile == 49
+			&& vars.ytile == 11
+		){ return true; }
+			
+		if(settings["BeachUPRPRC"]
+			&& (43 <= vars.xtile && vars.xtile <= 45)
+			&& (10 <= vars.ytile && vars.ytile <= 11)
+			&& old.musicid == 36
 		){ return true; }
 		//Town Members
 		if(settings["Aruraune"]
