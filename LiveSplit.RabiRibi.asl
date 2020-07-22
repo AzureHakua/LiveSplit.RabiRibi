@@ -402,7 +402,7 @@ split
 	){ return vars.hasSplit[6] = true; }
 	
 	if(settings["Kotri3Skip"]
-		&& (vars.xtile_old == 185 && vars.xtile == 186)
+		&& (vars.xtile_old == 185 && vars.xtile != 185)
 		&& vars.ytile == 4
 		&& current.musicid == 38
 		&& !vars.hasSplit[7]
