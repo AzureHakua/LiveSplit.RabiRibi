@@ -28,7 +28,7 @@ state("rabiribi", "v1.99t")
 startup
 {
 	settings.Add("practice", false, "Practice Mode");
-	settings.SetToolTip("practice", "Practice Mode will start the timer when starting a boss and reset upon reloading. For use with the boss settings below.")
+	settings.SetToolTip("practice", "Practice Mode will start the timer when starting a boss and reset upon reloading. For use with the boss settings below.");
 	settings.Add("main", true, "Main Bosses");
 	settings.Add("other", true, "Other Settings");
 	
