@@ -29,6 +29,8 @@ startup
 {
 	settings.Add("practice", false, "Practice Mode");
 	settings.SetToolTip("practice", "Practice Mode will start the timer when starting a boss and reset upon reloading. For use with the boss settings below.");
+	settings.Add("runtime", false, "Use T.Runtime");
+	settings.SetToolTip("runtime", "Use T.Runtime instead of T.Playtime for IGT when this is checked. T.Runtime is essentially 'Time without Loads' or total frames converted to time.");
 	settings.Add("main", true, "Main Bosses");
 	settings.Add("other", true, "Other Settings");
 	
@@ -91,8 +93,8 @@ startup
 				settings.Add("Sandbag", false, "Sandbag");
 			settings.CurrentDefaultParent = "rando";
 				settings.Add("EasterEgg", false, "Every Egg");
-				settings.Add("EasterEgg5", true, "5 Eggs");
-				settings.Add("EasterEgg7", true, "7 Eggs");
+				settings.Add("EasterEgg5", false, "5 Eggs");
+				settings.Add("EasterEgg7", false, "7 Eggs");
 				settings.Add("Trophy", false, "Trophy");
 }
 
@@ -123,8 +125,12 @@ gameTime
 		submissions require, but truntime might be more useful for
 		personal use as it's a more accurate real time
 	*/
-	//vars.igt = (int) current.truntime * 1000 / 60;
-	vars.igt = (int) current.tplaytime * 1000 / 60;
+	if(settings["runtime"]){
+		vars.igt = (int) current.truntime * 1000 / 60;
+	}
+	else{
+		vars.igt = (int) current.tplaytime * 1000 / 60;
+	}
 	return new TimeSpan(0,0,0,0,vars.igt);
 }
 
