@@ -27,7 +27,6 @@ state("rabiribi", "v1.99t")
 	uint warpfc2: "rabiribi.exe", 0x0167AFBC;
 	float itemrate: "rabiribi.exe", 0x016E8080;
 	byte1664 itemarray: "rabiribi.exe", 0x01679EEC;
-	bool usedgoldcarrot: "rabiribi.exe", 0x0167C7FE;
 }
 
 startup
@@ -511,8 +510,6 @@ split
 	if(settings["Item100"] && !vars.hasSplit[9] && current.itemrate >= 97.50) {
 		// items
 		for(int i=4; i<148; i+=4) {if(current.itemarray[i] == 0) return false;}
-		// gold carrot
-		if(current.itemarray[156] == 0 && !current.usedgoldcarrot) return false;
 		// badges
 		for(int i=256; i<380; i+=4) {if(current.itemarray[i] == 0) return false;}
 		// health ups
