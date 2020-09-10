@@ -380,8 +380,8 @@ split
 		){ return true; }
 		
 		if(settings["Rumi"]
-			&& (1 <= vars.xtile && vars.xtile <= 4)
-			&& (15 <= vars.ytile && vars.ytile <= 16)
+			&& (1 <= vars.xtile && vars.xtile <= 5)
+			&& (11 <= vars.ytile && vars.ytile <= 16)
 		){ return true; }
 		
 		if(settings["Irisu"]
