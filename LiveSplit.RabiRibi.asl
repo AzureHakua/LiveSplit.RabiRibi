@@ -86,7 +86,7 @@ startup
 		settings.Add("skips", true, "Boss Skips");
 		settings.Add("lab", true, "Exotic Lab");
 		settings.Add("rando", false, "Custom Map");
-        settings.Add("hundo", false, "ATM / 100%");
+		settings.Add("hundo", false, "ATM / 100%");
 			settings.CurrentDefaultParent = "skips";
 				settings.Add("SyaroSkip", true, "Syaro Skip");
 				settings.Add("NoahSkip", true, "Noah Skip");
@@ -102,10 +102,10 @@ startup
 				settings.Add("EasterEgg5", false, "5 Eggs");
 				settings.Add("EasterEgg7", false, "7 Eggs");
 				settings.Add("Trophy", false, "Trophy");
-            settings.CurrentDefaultParent = "hundo";
-                settings.Add("HomWarp", false, "HoM warp stone");
-                settings.Add("Fc2Warp", false, "FC2 warp stone");
-                settings.Add("Item100", false, "100% Item");
+			settings.CurrentDefaultParent = "hundo";
+				settings.Add("HomWarp", false, "HoM warp stone");
+				settings.Add("Fc2Warp", false, "FC2 warp stone");
+				settings.Add("Item100", false, "100% Item");
 }
 
 init
@@ -489,26 +489,26 @@ split
 		&& old.itemarray[168] == 0
 	){ return true; }
 	
-    //Misc
-    if(settings["HomWarp"]
+	//Misc
+	if(settings["HomWarp"]
 		&& !vars.reloading
 		&& !vars.hasSplit[10]
 		&& vars.xtile == 186
 		&& vars.ytile == 9
-        && current.warphom == 1
+		&& current.warphom == 1
 		&& old.warphom == 0
-    ) { return vars.hasSplit[10] = true; }
-    
-    if(settings["Fc2Warp"]
+	) { return vars.hasSplit[10] = true; }
+	
+	if(settings["Fc2Warp"]
 		&& !vars.reloading
 		&& !vars.hasSplit[11]
 		&& vars.xtile == 4
 		&& vars.ytile == 16
-        && current.warpfc2 == 1
+		&& current.warpfc2 == 1
 		&& old.warpfc2 == 0
-    ) { return vars.hasSplit[11] = true; }
-    
-    if(settings["Item100"] && !vars.hasSplit[9] && current.itemrate >= 97.50) {
+	) { return vars.hasSplit[11] = true; }
+	
+	if(settings["Item100"] && !vars.hasSplit[9] && current.itemrate >= 97.50) {
 		// items
 		for(int i=4; i<148; i+=4) {if(current.itemarray[i] == 0) return false;}
 		// gold carrot
