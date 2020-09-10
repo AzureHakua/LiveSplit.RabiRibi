@@ -17,12 +17,16 @@ state("rabiribi", "v1.99t")
 	
 	uint moneytotal: "rabiribi.exe", 0x167C10C;
 	uint eggtotal: "rabiribi.exe", 0x167CC14;
-	uint trophy: "rabiribi.exe", 0x1679F94;
 	
 	uint menustate: "rabiribi.exe", 0x0172C294;
 	uint savecursor: "rabiribi.exe", 0x0172C29C;
 	float artbookactivetime: "rabiribi.exe", 0x01689290, 0x134C;
 	float artbooktimer: "rabiribi.exe", 0x01689290, 0xB504;
+	
+	uint warphom: "rabiribi.exe", 0x0167AFB8;
+	uint warpfc2: "rabiribi.exe", 0x0167AFBC;
+	float itemrate: "rabiribi.exe", 0x016E8080;
+	byte1664 itemarray: "rabiribi.exe", 0x01679EEC;
 }
 
 startup
@@ -81,6 +85,7 @@ startup
 		settings.Add("skips", true, "Boss Skips");
 		settings.Add("lab", true, "Exotic Lab");
 		settings.Add("rando", false, "Custom Map");
+		settings.Add("hundo", false, "ATM / 100%");
 			settings.CurrentDefaultParent = "skips";
 				settings.Add("SyaroSkip", true, "Syaro Skip");
 				settings.Add("NoahSkip", true, "Noah Skip");
@@ -96,6 +101,10 @@ startup
 				settings.Add("EasterEgg5", false, "5 Eggs");
 				settings.Add("EasterEgg7", false, "7 Eggs");
 				settings.Add("Trophy", false, "Trophy");
+			settings.CurrentDefaultParent = "hundo";
+				settings.Add("HomWarp", false, "HoM warp stone");
+				settings.Add("Fc2Warp", false, "FC2 warp stone");
+				settings.Add("Item100", false, "100% Item");
 }
 
 init
@@ -105,7 +114,7 @@ init
 	vars.ytile = (int)(current.ypos/720);
 	vars.reloading = false;
 	
-	vars.hasSplit = new bool[9];
+	vars.hasSplit = new bool[12];
 	vars.maxEggs = 0;
 	vars.framecounter = 0;
 }
@@ -150,7 +159,7 @@ start
 		&& old.artbooktimer == 0
 		&& current.artbooktimer > 0
 	)){ 
-		vars.hasSplit = new bool[9];
+		vars.hasSplit = new bool[12];
 		vars.maxEggs = 0;
 		vars.framecounter = 0;
 		return true; 
@@ -160,7 +169,7 @@ start
 		&& !vars.reloading
 		&& (current.minimapstate > old.minimapstate)
 	){
-		vars.hasSplit = new bool[9];
+		vars.hasSplit = new bool[12];
 		return true;
 	}
 }
@@ -177,7 +186,7 @@ reset
 		old.artbookactivetime < 60
 		&& current.artbookactivetime >= 60
 	)){ 
-		vars.hasSplit = new bool[9];
+		vars.hasSplit = new bool[12];
 		vars.maxEggs = 0;
 		vars.framecounter = 0;
 		return true;
@@ -185,7 +194,7 @@ reset
 	//boss practice
 	if(settings["practice"] && vars.reloading)
 	{
-		vars.hasSplit = new bool[9];
+		vars.hasSplit = new bool[12];
 		vars.reloading = false;
 		return true;
 	}
@@ -380,8 +389,8 @@ split
 		){ return true; }
 		
 		if(settings["Rumi"]
-			&& (1 <= vars.xtile && vars.xtile <= 4)
-			&& (15 <= vars.ytile && vars.ytile <= 16)
+			&& (1 <= vars.xtile && vars.xtile <= 5)
+			&& (11 <= vars.ytile && vars.ytile <= 16)
 		){ return true; }
 		
 		if(settings["Irisu"]
@@ -475,8 +484,46 @@ split
 	){ return true; }
 	
 	if(settings["Trophy"]
-		&& current.trophy == 1
-		&& old.trophy == 0
+		&& current.itemarray[168] == 1
+		&& old.itemarray[168] == 0
 	){ return true; }
+	
+	//Misc
+	if(settings["HomWarp"]
+		&& !vars.reloading
+		&& !vars.hasSplit[10]
+		&& vars.xtile == 186
+		&& vars.ytile == 9
+		&& current.warphom == 1
+		&& old.warphom == 0
+	) { return vars.hasSplit[10] = true; }
+	
+	if(settings["Fc2Warp"]
+		&& !vars.reloading
+		&& !vars.hasSplit[11]
+		&& vars.xtile == 4
+		&& vars.ytile == 16
+		&& current.warpfc2 == 1
+		&& old.warpfc2 == 0
+	) { return vars.hasSplit[11] = true; }
+	
+	if(settings["Item100"] && !vars.hasSplit[9] && current.itemrate >= 97.50) {
+		// items
+		for(int i=4; i<148; i+=4) {if(current.itemarray[i] == 0) return false;}
+		// badges
+		for(int i=256; i<380; i+=4) {if(current.itemarray[i] == 0) return false;}
+		// health ups
+		for(int i=384; i<484; i+=4) {if(current.itemarray[i] == 0) return false;}
+		// attack ups
+		for(int i=640; i<720; i+=4) {if(current.itemarray[i] == 0) return false;}
+		// mana ups
+		for(int i=896; i<996; i+=4) {if(current.itemarray[i] == 0) return false;}
+		// regen ups
+		for(int i=1152; i<1212; i+=4) {if(+current.itemarray[i] == 0) return false;}
+		// pack ups
+		for(int i=1408; i<1448; i+=4) {if(current.itemarray[i] == 0) return false;}
+		 
+		return vars.hasSplit[9] = true;
+	}
 	return false;
 }
