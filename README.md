@@ -1,12 +1,11 @@
 # LiveSplit.RabiRibi
-Rabi-Ribi Auto Splitter ASL (RASA) Script for use with LiveSplit
+Rabi-Ribi Auto Splitter ASL Script for use with LiveSplit
 
 General Notes:
 ===
--Only works on version 1.99t of Rabi-Ribi  
--The default settings are 10TM ready for BunStrike routes (any difficulty should work).  
--Start timing uses screen blackness while the menu music is playing to determine start time. This will trigger when starting any file, so take note of that.  
--Reset will trigger when the title music plays. Recommended to disable this (checkbox above the rest of the options) if you are running any category with ASG or playing Randomizer where you might need to reload to the title screen to load an Auto Save.  
+-Currently only works on version 1.99t of Rabi-Ribi (latest version) but version 1.65 is planned.
+-The default settings are 10TM ready for BunStrike routes (any difficulty should work).
+-IGT is tracked automatically via T.Runtime. You can check this by right clicking > edit splits and checking the Game Time tab or by using the 'Alternative Timing Method' component of LiveSplit found here: http://livesplit.org/components/
  
 Regarding Boss Skips
 ===
@@ -18,8 +17,3 @@ Regarding Boss Skips
  
 -If you are performing Syaro Skip, you can use the Syaro Skip option INSTEAD of the Syaro option. The Syaro Skip option will split when you leave System Interior. If you have both options checked, you will split twice when performing Syaro Skip.  
 -The Noah Skip option will split as you transition to the room where Noah 3 is. Use this option for both Noah Skip and BunStrike Zip routes.  
-
-Future To Do
-===
--Implement 100% specific options: split on CFE, split on map transitions, split on specific item percents  
--Implement practice splitting controls to use to time boss fights more effectively  
