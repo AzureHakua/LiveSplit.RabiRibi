@@ -7,6 +7,7 @@ state("rabiribi", "v1.99t")
 	
 	uint blackness: "rabiribi.exe", 0x16E7338;
 	uint minimapstate: "rabiribi.exe", 0x16E7D9C; //0 is bottom, 1 is top
+	uint eventid: "rabiribi.exe", 0x16E73BC; //5 is when a boss is defeated
 	
 	uint musicid: "rabiribi.exe", 0x84C888;
 	uint bgfilterid: "rabiribi.exe", 0x172B4F8; //0 is default, 6 is alius
@@ -32,9 +33,9 @@ state("rabiribi", "v1.99t")
 startup
 {
 	settings.Add("practice", false, "Practice Mode");
-	settings.SetToolTip("practice", "Practice Mode will start the timer when starting a boss and reset upon reloading. For use with the boss settings below.");
-	settings.Add("runtime", false, "Use T.Runtime");
-	settings.SetToolTip("runtime", "Use T.Runtime instead of T.Playtime for IGT when this is checked. T.Runtime is essentially 'Time without Loads' or total frames converted to time.");
+	settings.SetToolTip("practice", "Practice Mode starts timer on boss and resets on reload. For use with the boss settings below.");
+	settings.Add("runtime", true, "Use T.Runtime");
+	settings.SetToolTip("runtime", "When unchecked, T.Playtime will be used for IGT instead.");
 	settings.Add("main", true, "Main Bosses");
 	settings.Add("other", true, "Other Settings");
 	
@@ -102,9 +103,9 @@ startup
 				settings.Add("EasterEgg7", false, "7 Eggs");
 				settings.Add("Trophy", false, "Trophy");
 			settings.CurrentDefaultParent = "hundo";
-				settings.Add("HomWarp", false, "HoM warp stone");
-				settings.Add("Fc2Warp", false, "FC2 warp stone");
-				settings.Add("Item100", false, "100% Item");
+				settings.Add("HomWarp", false, "HoM Warp Stone");
+				settings.Add("Fc2Warp", false, "FC2 Warp Stone");
+				settings.Add("Item100", false, "100% Item Collection");
 }
 
 init
@@ -114,7 +115,7 @@ init
 	vars.ytile = (int)(current.ypos/720);
 	vars.reloading = false;
 	
-	vars.hasSplit = new bool[12];
+	vars.hasSplit = new bool[11];
 	vars.maxEggs = 0;
 	vars.framecounter = 0;
 }
@@ -130,9 +131,8 @@ gameTime
 		truntime is total frame count
 		tplaytime is total frame count without cutscenes or menus
 		
-		by default, tplaytime is used as that is what leaderboard
-		submissions require, but truntime might be more useful for
-		personal use as it's a more accurate real time
+		by default, truntime is used as that is what leaderboard
+		submissions require for "Time without Loads"
 	*/
 	if(settings["runtime"]){
 		vars.igt = (int) current.truntime * 1000 / 60;
@@ -159,7 +159,7 @@ start
 		&& old.artbooktimer == 0
 		&& current.artbooktimer > 0
 	)){ 
-		vars.hasSplit = new bool[12];
+		vars.hasSplit = new bool[11];
 		vars.maxEggs = 0;
 		vars.framecounter = 0;
 		return true; 
@@ -169,7 +169,7 @@ start
 		&& !vars.reloading
 		&& (current.minimapstate > old.minimapstate)
 	){
-		vars.hasSplit = new bool[12];
+		vars.hasSplit = new bool[11];
 		return true;
 	}
 }
@@ -186,7 +186,7 @@ reset
 		old.artbookactivetime < 60
 		&& current.artbookactivetime >= 60
 	)){ 
-		vars.hasSplit = new bool[12];
+		vars.hasSplit = new bool[11];
 		vars.maxEggs = 0;
 		vars.framecounter = 0;
 		return true;
@@ -194,7 +194,7 @@ reset
 	//boss practice
 	if(settings["practice"] && vars.reloading)
 	{
-		vars.hasSplit = new bool[12];
+		vars.hasSplit = new bool[11];
 		vars.reloading = false;
 		return true;
 	}
@@ -255,12 +255,6 @@ split
 			&& (109 <= vars.xtile && vars.xtile <= 111)
 			&& (6 <= vars.ytile && vars.ytile <= 7)
 		){ return true; }
-		
-		if(settings["Chocolate"]
-			&& (65 <= vars.xtile && vars.xtile <= 67)
-			&& (13 <= vars.ytile && vars.ytile <= 15)
-			&& !vars.hasSplit[0]
-		){ return vars.hasSplit[0] = true; }
 		
 		if(settings["Cicini"]
 			&& (21 <= vars.xtile && vars.xtile <= 23)
@@ -323,12 +317,6 @@ split
 			&& (13 <= vars.ytile && vars.ytile <= 14)
 		){ return true; }
 		
-		if(settings["Rita"]
-			&& (85 <= vars.xtile && vars.xtile <= 87)
-			&& (9 <= vars.ytile && vars.ytile <= 10)
-			&& old.musicid == 34
-		){ return true; }
-		
 		if(settings["Saya"]
 			&& (121 <= vars.xtile && vars.xtile <= 124)
 			&& (2 <= vars.ytile && vars.ytile <= 3)
@@ -354,6 +342,7 @@ split
 			&& (63 <= vars.xtile && vars.xtile <= 65)
 			&& (3 <= vars.ytile && vars.ytile <= 4)
 		){ return true; }
+		
 		//Story Bosses
 		if(settings["Alius1"]
 			&& (211 <= vars.xtile && vars.xtile <= 214)
@@ -408,61 +397,75 @@ split
 			&& (14 <= vars.ytile && vars.ytile <= 15)
 		){ return true; }
 	}
+	
 	//Non-minimap changing bosses
+	if(settings["Rita"]
+		&& (85 <= vars.xtile && vars.xtile <= 87)
+		&& (9 <= vars.ytile && vars.ytile <= 10)
+		&& (current.eventid == 5 && old.eventid == 0)
+	){ return true; }
+	
+	if(settings["Chocolate"]
+		&& (65 <= vars.xtile && vars.xtile <= 67)
+		&& (13 <= vars.ytile && vars.ytile <= 15)
+		&& (current.eventid == 5 && old.eventid == 0)
+	){ return true; }
+	
 	if(settings["Noah1"]
 		&& (217 <= vars.xtile && vars.xtile <= 219)
 		&& (1 <= vars.ytile && vars.ytile <= 2)
 		&& (current.musicid == 43 && old.musicid == 37)
-		&& !vars.hasSplit[1]
-	){ return vars.hasSplit[1] = true; }
+		&& !vars.hasSplit[0]
+	){ return vars.hasSplit[0] = true; }
 	
 	if(settings["Noah2"]
 		&& (215 <= vars.xtile && vars.xtile <= 219)
 		&& (1 <= vars.ytile && vars.ytile <= 2)
 		&& (current.musicid == 42 && old.musicid == 43)
-		&& !vars.hasSplit[2]
-	){ return vars.hasSplit[2] = true; }
+		&& !vars.hasSplit[1]
+	){ return vars.hasSplit[1] = true; }
 	//Misc
 	if(settings["Computer"]
 		&& (139 <= vars.xtile && vars.xtile <= 141)
 		&& vars.ytile == 12
 		&& (current.moneytotal - old.moneytotal == 17500)
-		&& !vars.hasSplit[3]
-	){ return vars.hasSplit[3] = true; }
+		&& !vars.hasSplit[2]
+	){ return vars.hasSplit[2] = true; }
 	
 	if(settings["Sandbag"]
 		&& vars.xtile == 52
 		&& (4 <= vars.ytile && vars.ytile <= 7)
 		&& (current.musicid == 13 && old.musicid == 59)
-		&& !vars.hasSplit[4]
-	){ return vars.hasSplit[4] = true; }
+		&& !vars.hasSplit[3]
+	){ return vars.hasSplit[3] = true; }
 	//Skips
 	if(settings["SyaroSkip"]
 		&& vars.xtile == 117
 		&& vars.ytile == 16
 		&& (current.musicid == 19 && old.musicid == 48)
-		&& !vars.hasSplit[5]
-	){ return vars.hasSplit[5] = true; }
+		&& !vars.hasSplit[4]
+	){ return vars.hasSplit[4] = true; }
 	
 	if(settings["NoahSkip"]
 		&& vars.xtile == 216
 		&& vars.ytile == 2
-		&& !vars.hasSplit[6]
-	){ return vars.hasSplit[6] = true; }
+		&& !vars.hasSplit[5]
+	){ return vars.hasSplit[5] = true; }
 	
 	if(settings["Kotri3Skip"]
 		&& (vars.xtile_old == 185 && vars.xtile != 185)
 		&& vars.ytile == 4
 		&& current.musicid == 38
-		&& !vars.hasSplit[7]
-	) { return vars.hasSplit[7] = true; }
+		&& !vars.hasSplit[6]
+	) { return vars.hasSplit[6] = true; }
 	
 	if(settings["ArurauneSkip"]
 		&& vars.xtile == 6
 		&& vars.ytile == 4
 		&& current.musicid == 47
-		&& !vars.hasSplit[8]
-	) { return vars.hasSplit[8] = true; }
+		&& !vars.hasSplit[7]
+	) { return vars.hasSplit[7] = true; }
+	
 	//Randomizer
 	if(settings["EasterEgg"]
 		&& (current.eggtotal > vars.maxEggs && vars.framecounter >= refreshRate)
@@ -491,23 +494,23 @@ split
 	//Misc
 	if(settings["HomWarp"]
 		&& !vars.reloading
-		&& !vars.hasSplit[10]
+		&& !vars.hasSplit[8]
 		&& vars.xtile == 186
 		&& vars.ytile == 9
 		&& current.warphom == 1
 		&& old.warphom == 0
-	) { return vars.hasSplit[10] = true; }
+	) { return vars.hasSplit[8] = true; }
 	
 	if(settings["Fc2Warp"]
 		&& !vars.reloading
-		&& !vars.hasSplit[11]
+		&& !vars.hasSplit[9]
 		&& vars.xtile == 4
 		&& vars.ytile == 16
 		&& current.warpfc2 == 1
 		&& old.warpfc2 == 0
-	) { return vars.hasSplit[11] = true; }
+	) { return vars.hasSplit[9] = true; }
 	
-	if(settings["Item100"] && !vars.hasSplit[9] && current.itemrate >= 97.50) {
+	if(settings["Item100"] && !vars.hasSplit[10] && current.itemrate >= 97.50) {
 		// items
 		for(int i=4; i<148; i+=4) {if(current.itemarray[i] == 0) return false;}
 		// badges
@@ -523,7 +526,7 @@ split
 		// pack ups
 		for(int i=1408; i<1448; i+=4) {if(current.itemarray[i] == 0) return false;}
 		 
-		return vars.hasSplit[9] = true;
+		return vars.hasSplit[10] = true;
 	}
 	return false;
 }
