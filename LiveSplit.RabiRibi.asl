@@ -27,8 +27,39 @@ state("rabiribi", "v1.99t")
 	
 	uint warphom: "rabiribi.exe", 0x0167AFB8;
 	uint warpfc2: "rabiribi.exe", 0x0167AFBC;
-	float itemrate: "rabiribi.exe", 0x016E8080;
 	byte1664 itemarray: "rabiribi.exe", 0x01679EEC;
+}
+
+state("rabiribi", "v1.65")
+{
+	uint playtime: "rabiribi.exe", 0xD37048;
+	uint tplaytime: "rabiribi.exe", 0xD388E0;
+	uint runtime: "rabiribi.exe", 0xD37210;
+	uint truntime: "rabiribi.exe", 0xD388E4;
+	
+	uint blackness: "rabiribi.exe", 0xA45824;
+	uint minimapstate: "rabiribi.exe", 0xA46274; //0 is bottom, 1 is top
+	uint eventid: "rabiribi.exe", 0xA4589C; //5 is when a boss is defeated
+	
+	uint musicid: "rabiribi.exe", 0xA46294;
+	uint bgfilterid: "rabiribi.exe", 0xA8AA8C; //0 is default, 6 is alius
+
+	uint mapid: "rabiribi.exe", 0xA908F8;
+	float xpos: "rabiribi.exe", 0x940EE0, 0x0C;
+	float ypos: "rabiribi.exe", 0x940EE0, 0x10;
+	
+	uint moneytotal: "rabiribi.exe", 0xD3823C;
+	uint eggtotal: "rabiribi.exe", 0xD38D44;
+	
+	uint gamestate: "rabiribi.exe", 0x4CFB78;
+	uint menustate: "rabiribi.exe", 0xA8B81C;
+	uint savecursor: "rabiribi.exe", 0xA8B824;
+	float artbookactivetime: "rabiribi.exe", 0x940EE0, 0x1310;
+	float artbooktimer: "rabiribi.exe", 0x940EE0, 0xB2FC;
+	
+	uint warphom: "rabiribi.exe", 0xD370E8;
+	uint warpfc2: "rabiribi.exe", 0xD370EC;
+	byte1664 itemarray: "rabiribi.exe", 0xD3601C;
 }
 
 startup
@@ -111,6 +142,12 @@ startup
 
 init
 {
+	if(modules.First().ModuleMemorySize == 0x10CE000)
+		version = "v1.65";
+	else
+		version = "v1.99t";
+	
+	
 	refreshRate = 60;
 	vars.xtile = (int)(current.xpos/1280) + current.mapid * 25;
 	vars.ytile = (int)(current.ypos/720);
@@ -150,10 +187,13 @@ start
 		a sharp increase in screen blackness indicates that the game has started
 		this also triggers for starting the game from a file, so it's not perfect
 	*/
-	if((current.menustate == 12
-		&& current.savecursor == 0
+	if((current.savecursor == 0
 		&& old.blackness == 0
 		&& current.blackness >= 100000
+		&& (
+			(version == "v1.99t" && current.menustate == 12)
+			|| (version == "v1.65" && current.menustate == 2)
+		)
 	) || (
 		// for artbook things
 		current.artbookactivetime >= 60
@@ -182,7 +222,11 @@ reset
 		disable this feature if you're running
 		a category where save & quit is involved
 	*/
-	if((current.menustate == 2
+	if((
+		(
+			(version == "v1.99t" && current.menustate == 2)
+			|| (version == "v1.65" && (current.musicid == 45 || current.musicid == 46))
+		)
 	) || (
 		old.artbookactivetime < 60
 		&& current.artbookactivetime >= 60
@@ -514,7 +558,9 @@ split
 		&& old.warpfc2 == 0
 	) { return vars.hasSplit[9] = true; }
 	
-	if(settings["Item100"] && !vars.hasSplit[10] && current.itemrate >= 97.50) {
+	if(settings["Item100"] && !vars.hasSplit[10]) {
+		// ribbon badge
+		if(current.itemarray[372] == 0) return false;
 		// items
 		for(int i=4; i<148; i+=4) {if(current.itemarray[i] == 0) return false;}
 		// badges
