@@ -19,6 +19,7 @@ state("rabiribi", "v1.99t")
 	uint moneytotal: "rabiribi.exe", 0x167C10C;
 	uint eggtotal: "rabiribi.exe", 0x167CC14;
 	
+	uint gamestate: "rabiribi.exe", 0x84C8BC;
 	uint menustate: "rabiribi.exe", 0x0172C294;
 	uint savecursor: "rabiribi.exe", 0x0172C29C;
 	float artbookactivetime: "rabiribi.exe", 0x01689290, 0x134C;
@@ -210,6 +211,9 @@ split
 	vars.xtile = (int)(current.xpos/1280) + current.mapid * 25;
 	vars.ytile = (int)(current.ypos/720);
 	vars.reloading = current.playtime == 0 || (current.playtime < old.playtime);
+	
+	// don't split outside main game state
+	if(current.gamestate != 2) return false;
 	
 	//when the minimap shifts down, it means a boss has been defeated
 	if(!vars.reloading && (old.minimapstate > current.minimapstate))
