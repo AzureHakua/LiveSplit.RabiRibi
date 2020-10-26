@@ -119,6 +119,7 @@ startup
 		settings.Add("lab", true, "Exotic Lab");
 		settings.Add("rando", false, "Custom Map");
 		settings.Add("hundo", false, "ATM / 100%");
+		settings.Add("xtm", false, "Legacy");
 			settings.CurrentDefaultParent = "skips";
 				settings.Add("SyaroSkip", true, "Syaro Skip");
 				settings.Add("NoahSkip", true, "Noah Skip");
@@ -138,6 +139,9 @@ startup
 				settings.Add("HomWarp", false, "HoM Warp Stone");
 				settings.Add("Fc2Warp", false, "FC2 Warp Stone");
 				settings.Add("Item100", false, "100% Item Collection");
+			settings.CurrentDefaultParent = "xtm";
+				settings.Add("BeachSkip", false, "Beach Skip");
+				settings.Add("MRE", false, "Miru Early");
 }
 
 init
@@ -153,7 +157,7 @@ init
 	vars.ytile = (int)(current.ypos/720);
 	vars.reloading = false;
 	
-	vars.hasSplit = new bool[11];
+	vars.hasSplit = new bool[12];
 	vars.maxEggs = 0;
 	vars.framecounter = 0;
 }
@@ -200,7 +204,7 @@ start
 		&& old.artbooktimer == 0
 		&& current.artbooktimer > 0
 	)){ 
-		vars.hasSplit = new bool[11];
+		vars.hasSplit = new bool[12];
 		vars.maxEggs = 0;
 		vars.framecounter = 0;
 		return true; 
@@ -210,7 +214,7 @@ start
 		&& !vars.reloading
 		&& (current.minimapstate > old.minimapstate)
 	){
-		vars.hasSplit = new bool[11];
+		vars.hasSplit = new bool[12];
 		return true;
 	}
 }
@@ -231,7 +235,7 @@ reset
 		old.artbookactivetime < 60
 		&& current.artbookactivetime >= 60
 	)){ 
-		vars.hasSplit = new bool[11];
+		vars.hasSplit = new bool[12];
 		vars.maxEggs = 0;
 		vars.framecounter = 0;
 		return true;
@@ -239,7 +243,7 @@ reset
 	//boss practice
 	if(settings["practice"] && vars.reloading)
 	{
-		vars.hasSplit = new bool[11];
+		vars.hasSplit = new bool[12];
 		vars.reloading = false;
 		return true;
 	}
@@ -581,5 +585,19 @@ split
 		print("Item100 Split"); 
 		return vars.hasSplit[10] = true;
 	}
+	
+	//Legacy
+	if(settings["BeachSkip"]
+		&& (current.xpos < 2250 && old.xpos > 5500)
+		&& (current.mapid == 1 && old.mapid == 0)
+	) { print("BeachSkip Split"); return true; }
+	if(settings["MRE"]
+		&& !vars.hasSplit[11]
+		&& current.musicid == 54
+		&& vars.ytile == 7
+		&& current.mapid == 8
+		&& (current.xpos >= 24486 && current.xpos < 24586 && old.xpos < 24486)
+	) { print("MRE Split"); return vars.hasSplit[11] = true; }
+	
 	return false;
 }
