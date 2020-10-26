@@ -572,7 +572,7 @@ split
 		// mana ups
 		for(int i=896; i<996; i+=4) {if(current.itemarray[i] == 0) return false;}
 		// regen ups
-		for(int i=1152; i<1212; i+=4) {if(+current.itemarray[i] == 0) return false;}
+		for(int i=1152; i<1212; i+=4) {if(current.itemarray[i] == 0) return false;}
 		// pack ups
 		for(int i=1408; i<1448; i+=4) {if(current.itemarray[i] == 0) return false;}
 		 
