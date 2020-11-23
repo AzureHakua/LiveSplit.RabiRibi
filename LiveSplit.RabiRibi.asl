@@ -446,10 +446,8 @@ split
 	
 	//Non-minimap changing bosses
 	if(settings["ForestUPRPRC"]
-		&& old.musicid == 36
-		&& vars.xtile_old < 25
-		&& (vars.xtile == 48 || vars.xtile == 49)
-		&& vars.ytile == 11
+		&& (current.musicid == 36 && old.musicid == 36)
+		&& (current.mapid == 1 && old.mapid == 0)
 	){ print("ForestUPRPRC Split"); return true; }
 			
 	if(settings["Rita"]
