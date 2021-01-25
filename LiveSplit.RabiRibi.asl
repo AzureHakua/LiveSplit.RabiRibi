@@ -71,7 +71,7 @@ state("rabiribi", "v2.00")
 	
 	uint blackness: "rabiribi.exe", 0x016E3F48;
 	uint minimapstate: "rabiribi.exe", 0x016E49AC; //0 is bottom, 1 is top
-	uint eventid: "rabiribi.exe", 0x016E5C0C; //5 is when a boss is defeated
+	uint eventid: "rabiribi.exe", 0x016E3FCC; //5 is when a boss is defeated
 	
 	uint musicid: "rabiribi.exe", 0x00844888;
 	uint bgfilterid: "rabiribi.exe", 0x01728108; //0 is default, 6 is alius
@@ -521,7 +521,8 @@ split
 	if(settings["Sandbag"]
 		&& vars.xtile == 52
 		&& (4 <= vars.ytile && vars.ytile <= 7)
-		&& (current.musicid == 13 && old.musicid == 59)
+		&& current.musicid == 13
+		&& ((version == "1.99t" && old.musicid == 59) || (version != "1.99t" && old.musicid == 40))
 		&& !vars.hasSplit[3]
 	){ print("Sandbag Split"); return vars.hasSplit[3] = true; }
 	//Skips
