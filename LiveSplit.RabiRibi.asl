@@ -17,7 +17,7 @@ state("rabiribi", "v1.99t")
 	float ypos: "rabiribi.exe", 0x01689290, 0x14;
 	
 	uint moneytotal: "rabiribi.exe", 0x167C10C;
-	uint eggtotal: "rabiribi.exe", 0x167CC14;
+	ushort eggtotal: "rabiribi.exe", 0x167CC14;
 	
 	uint gamestate: "rabiribi.exe", 0x84C8BC;
 	uint menustate: "rabiribi.exe", 0x0172C294;
@@ -49,7 +49,7 @@ state("rabiribi", "v1.65")
 	float ypos: "rabiribi.exe", 0x940EE0, 0x10;
 	
 	uint moneytotal: "rabiribi.exe", 0xD3823C;
-	uint eggtotal: "rabiribi.exe", 0xD38D44;
+	ushort eggtotal: "rabiribi.exe", 0xD38D44;
 	
 	uint gamestate: "rabiribi.exe", 0x4CFB78;
 	uint menustate: "rabiribi.exe", 0xA8B81C;
@@ -60,6 +60,38 @@ state("rabiribi", "v1.65")
 	uint warphom: "rabiribi.exe", 0xD370E8;
 	uint warpfc2: "rabiribi.exe", 0xD370EC;
 	byte1664 itemarray: "rabiribi.exe", 0xD3601C;
+}
+
+state("rabiribi", "v2.00")
+{
+	uint playtime: "rabiribi.exe", 0x01672FB0;
+	uint tplaytime: "rabiribi.exe", 0x01674848;
+	uint runtime: "rabiribi.exe", 0x01673178;
+	uint truntime: "rabiribi.exe", 0x0167484C;
+	
+	uint blackness: "rabiribi.exe", 0x016E3F48;
+	uint minimapstate: "rabiribi.exe", 0x016E49AC; //0 is bottom, 1 is top
+	uint eventid: "rabiribi.exe", 0x016E3FCC; //5 is when a boss is defeated
+	
+	uint musicid: "rabiribi.exe", 0x00844888;
+	uint bgfilterid: "rabiribi.exe", 0x01728108; //0 is default, 6 is alius
+
+	uint mapid: "rabiribi.exe", 0x00D9BF88;
+	float xpos: "rabiribi.exe", 0x01681340, 0x10;
+	float ypos: "rabiribi.exe", 0x01681340, 0x14;
+	
+	uint moneytotal: "rabiribi.exe", 0x016741A4;
+	ushort eggtotal: "rabiribi.exe", 0x01674CAC;
+	
+	uint gamestate: "rabiribi.exe", 0x008448BC;
+	uint menustate: "rabiribi.exe", 0x01728EA4;
+	uint savecursor: "rabiribi.exe", 0x01728EAC;
+	float artbookactivetime: "rabiribi.exe", 0x01681340, 0x134C;
+	float artbooktimer: "rabiribi.exe", 0x01681340, 0xB504;
+	
+	uint warphom: "rabiribi.exe", 0x01673050;
+	uint warpfc2: "rabiribi.exe", 0x01673054;
+	byte1664 itemarray: "rabiribi.exe", 0x01671F84;
 }
 
 startup
@@ -140,6 +172,7 @@ startup
 				settings.Add("Fc2Warp", false, "FC2 Warp Stone");
 				settings.Add("Item100", false, "100% Item Collection");
 			settings.CurrentDefaultParent = "xtm";
+				settings.Add("PrePrologue", false, "Pre Prologue");
 				settings.Add("BeachSkip", false, "Beach Skip");
 				settings.Add("MRE", false, "Miru Early");
 }
@@ -148,6 +181,8 @@ init
 {
 	if(modules.First().ModuleMemorySize == 0x10CE000)
 		version = "v1.65";
+	else if(modules.First().ModuleMemorySize == 0x01874000)
+		version = "v2.00";
 	else
 		version = "v1.99t";
 	
@@ -195,7 +230,7 @@ start
 		&& old.blackness == 0
 		&& current.blackness >= 100000
 		&& (
-			(version == "v1.99t" && current.menustate == 12)
+			(version != "v1.65" && current.menustate == 12)
 			|| (version == "v1.65" && current.menustate == 2)
 		)
 	) || (
@@ -228,7 +263,7 @@ reset
 	*/
 	if((
 		(
-			(version == "v1.99t" && current.menustate == 2)
+			(version != "v1.65" && current.menustate == 2)
 			|| (version == "v1.65" && (current.musicid == 45 || current.musicid == 46))
 		)
 	) || (
@@ -486,7 +521,8 @@ split
 	if(settings["Sandbag"]
 		&& vars.xtile == 52
 		&& (4 <= vars.ytile && vars.ytile <= 7)
-		&& (current.musicid == 13 && old.musicid == 59)
+		&& current.musicid == 13
+		&& ((version == "1.99t" && old.musicid == 59) || (version != "1.99t" && old.musicid == 40))
 		&& !vars.hasSplit[3]
 	){ print("Sandbag Split"); return vars.hasSplit[3] = true; }
 	//Skips
@@ -585,6 +621,9 @@ split
 	}
 	
 	//Legacy
+	if(settings["PrePrologue"]
+		&& current.eventid == 311 && old.eventid == 0
+	) { print("PrePrologue Split"); return true; }
 	if(settings["BeachSkip"]
 		&& (current.xpos < 2250 && old.xpos > 5500)
 		&& (current.mapid == 1 && old.mapid == 0)
