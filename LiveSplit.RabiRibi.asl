@@ -140,6 +140,7 @@ startup
 				settings.Add("Fc2Warp", false, "FC2 Warp Stone");
 				settings.Add("Item100", false, "100% Item Collection");
 			settings.CurrentDefaultParent = "xtm";
+				settings.Add("PrePrologue", false, "Pre Prologue");
 				settings.Add("BeachSkip", false, "Beach Skip");
 				settings.Add("MRE", false, "Miru Early");
 }
@@ -585,6 +586,9 @@ split
 	}
 	
 	//Legacy
+	if(settings["PrePrologue"]
+		&& current.eventid == 311 && old.eventid == 0
+	) { print("PrePrologue Split"); return true; }
 	if(settings["BeachSkip"]
 		&& (current.xpos < 2250 && old.xpos > 5500)
 		&& (current.mapid == 1 && old.mapid == 0)
