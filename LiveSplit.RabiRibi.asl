@@ -62,6 +62,38 @@ state("rabiribi", "v1.65")
 	byte1664 itemarray: "rabiribi.exe", 0xD3601C;
 }
 
+state("rabiribi", "v2.00")
+{
+	uint playtime: "rabiribi.exe", 0x01672FB0;
+	uint tplaytime: "rabiribi.exe", 0x01674848;
+	uint runtime: "rabiribi.exe", 0x01673178;
+	uint truntime: "rabiribi.exe", 0x0167484C;
+	
+	uint blackness: "rabiribi.exe", 0x016E3F48;
+	uint minimapstate: "rabiribi.exe", 0x016E49AC; //0 is bottom, 1 is top
+	uint eventid: "rabiribi.exe", 0x016E5C0C; //5 is when a boss is defeated
+	
+	uint musicid: "rabiribi.exe", 0x00844888;
+	uint bgfilterid: "rabiribi.exe", 0x01728108; //0 is default, 6 is alius
+
+	uint mapid: "rabiribi.exe", 0x00D9BF88;
+	float xpos: "rabiribi.exe", 0x01681340, 0x10;
+	float ypos: "rabiribi.exe", 0x01681340, 0x14;
+	
+	uint moneytotal: "rabiribi.exe", 0x016741A4;
+	ushort eggtotal: "rabiribi.exe", 0x01674CAC;
+	
+	uint gamestate: "rabiribi.exe", 0x008448BC;
+	uint menustate: "rabiribi.exe", 0x01728EA4;
+	uint savecursor: "rabiribi.exe", 0x01728EAC;
+	float artbookactivetime: "rabiribi.exe", 0x01681340, 0x134C;
+	float artbooktimer: "rabiribi.exe", 0x01681340, 0xB504;
+	
+	uint warphom: "rabiribi.exe", 0x01673050;
+	uint warpfc2: "rabiribi.exe", 0x01673054;
+	byte1664 itemarray: "rabiribi.exe", 0x01671F84;
+}
+
 startup
 {
 	settings.Add("practice", false, "Practice Mode");
@@ -149,6 +181,8 @@ init
 {
 	if(modules.First().ModuleMemorySize == 0x10CE000)
 		version = "v1.65";
+	else if(modules.First().ModuleMemorySize == 0x01874000)
+		version = "v2.00";
 	else
 		version = "v1.99t";
 	
@@ -196,7 +230,7 @@ start
 		&& old.blackness == 0
 		&& current.blackness >= 100000
 		&& (
-			(version == "v1.99t" && current.menustate == 12)
+			(version != "v1.65" && current.menustate == 12)
 			|| (version == "v1.65" && current.menustate == 2)
 		)
 	) || (
@@ -229,7 +263,7 @@ reset
 	*/
 	if((
 		(
-			(version == "v1.99t" && current.menustate == 2)
+			(version != "v1.65" && current.menustate == 2)
 			|| (version == "v1.65" && (current.musicid == 45 || current.musicid == 46))
 		)
 	) || (
