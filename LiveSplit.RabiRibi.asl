@@ -17,7 +17,7 @@ state("rabiribi", "v1.99t")
 	float ypos: "rabiribi.exe", 0x01689290, 0x14;
 	
 	uint moneytotal: "rabiribi.exe", 0x167C10C;
-	uint eggtotal: "rabiribi.exe", 0x167CC14;
+	ushort eggtotal: "rabiribi.exe", 0x167CC14;
 	
 	uint gamestate: "rabiribi.exe", 0x84C8BC;
 	uint menustate: "rabiribi.exe", 0x0172C294;
@@ -49,7 +49,7 @@ state("rabiribi", "v1.65")
 	float ypos: "rabiribi.exe", 0x940EE0, 0x10;
 	
 	uint moneytotal: "rabiribi.exe", 0xD3823C;
-	uint eggtotal: "rabiribi.exe", 0xD38D44;
+	ushort eggtotal: "rabiribi.exe", 0xD38D44;
 	
 	uint gamestate: "rabiribi.exe", 0x4CFB78;
 	uint menustate: "rabiribi.exe", 0xA8B81C;
