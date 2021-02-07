@@ -62,7 +62,7 @@ state("rabiribi", "v1.65")
 	byte1664 itemarray: "rabiribi.exe", 0xD3601C;
 }
 
-state("rabiribi", "v2.00")
+state("rabiribi", "v2.0.0")
 {
 	uint playtime: "rabiribi.exe", 0x01672FB0;
 	uint tplaytime: "rabiribi.exe", 0x01674848;
