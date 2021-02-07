@@ -192,7 +192,7 @@ init
 	vars.ytile = (int)(current.ypos/720);
 	vars.reloading = false;
 	
-	vars.hasSplit = new bool[12];
+	vars.hasSplit = new bool[100];
 	vars.maxEggs = 0;
 	vars.framecounter = 0;
 }
@@ -238,7 +238,7 @@ start
 		&& old.artbooktimer == 0
 		&& current.artbooktimer > 0
 	)){ 
-		vars.hasSplit = new bool[12];
+		vars.hasSplit = new bool[100];
 		vars.maxEggs = 0;
 		vars.framecounter = 0;
 		return true; 
@@ -249,7 +249,7 @@ start
 		&& !vars.reloading
 		&& (current.minimapstate > old.minimapstate)
 	){
-		vars.hasSplit = new bool[12];
+		vars.hasSplit = new bool[100];
 		return true;
 	}
 }
@@ -270,7 +270,7 @@ reset
 		old.artbookactivetime < 60
 		&& current.artbookactivetime >= 60
 	)){ 
-		vars.hasSplit = new bool[12];
+		vars.hasSplit = new bool[100];
 		vars.maxEggs = 0;
 		vars.framecounter = 0;
 		return true;
@@ -279,7 +279,7 @@ reset
 	// boss practice
 	if(settings["practice"] && vars.reloading)
 	{
-		vars.hasSplit = new bool[12];
+		vars.hasSplit = new bool[100];
 		vars.reloading = false;
 		return true;
 	}
