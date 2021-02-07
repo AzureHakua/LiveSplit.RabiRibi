@@ -3,8 +3,8 @@ Rabi-Ribi Auto Splitter ASL Script for use with LiveSplit
 
 General Notes:  
 ===  
--Currently only works on version 1.99t of Rabi-Ribi (latest version) but version 1.65 is planned.  
--The default settings are 10TM ready for BunStrike routes (any difficulty should work).  
+-Currently only works on version 1.99t and 1.65 of Rabi-Ribi. It is being updated to work on version 2.00, but since this version is newly released, game updates may outspeed ASL updates.  
+-The default settings are 10TM ready (any difficulty should work).  
 -IGT is tracked automatically via T.Runtime. You can check this by right clicking > edit splits and checking the Game Time tab or by using the 'Alternative Timing Method' component of LiveSplit found here: http://livesplit.org/components/  
  
 Regarding Boss Skips
