@@ -1,33 +1,33 @@
 state("rabiribi", "v2.00")
 {
-	uint playtime: "rabiribi.exe", 0x01672FB0;
-	uint tplaytime: "rabiribi.exe", 0x01674848;
-	uint runtime: "rabiribi.exe", 0x01673178;
-	uint truntime: "rabiribi.exe", 0x0167484C;
+	uint playtime: "rabiribi.exe", 0x01673FB8;
+	uint tplaytime: "rabiribi.exe", 0x01675850;
+	uint runtime: "rabiribi.exe", 0x01674180;
+	uint truntime: "rabiribi.exe", 0x01675854;
 	
-	uint blackness: "rabiribi.exe", 0x016E3F48;
-	uint minimapstate: "rabiribi.exe", 0x016E49AC; // 0 is bottom, 1 is top
-	uint eventid: "rabiribi.exe", 0x016E3FCC; // 5 is when a boss is defeated
+	uint blackness: "rabiribi.exe", 0x016E4F50;
+	uint minimapstate: "rabiribi.exe", 0x016E59B4; // 0 is bottom, 1 is top
+	uint eventid: "rabiribi.exe", 0x016E4FD4; // 5 is when a boss is defeated
 	
-	uint musicid: "rabiribi.exe", 0x00844888;
-	uint bgfilterid: "rabiribi.exe", 0x01728108; // 0 is default, 6 is alius
+	uint musicid: "rabiribi.exe", 0x00845888;
+	uint bgfilterid: "rabiribi.exe", 0x01729110; // 0 is default, 6 is alius
 
-	uint mapid: "rabiribi.exe", 0x00D9BF88;
-	float xpos: "rabiribi.exe", 0x01681340, 0x10;
-	float ypos: "rabiribi.exe", 0x01681340, 0x14;
+	uint mapid: "rabiribi.exe", 0x00D9CF88;
+	float xpos: "rabiribi.exe", 0x01682348, 0x10;
+	float ypos: "rabiribi.exe", 0x01682348, 0x14;
 	
-	uint moneytotal: "rabiribi.exe", 0x016741A4;
-	ushort eggtotal: "rabiribi.exe", 0x01674CAC;
+	uint moneytotal: "rabiribi.exe", 0x016751AC;
+	ushort eggtotal: "rabiribi.exe", 0x01675CB4;
 	
-	uint gamestate: "rabiribi.exe", 0x008448BC;
-	uint menustate: "rabiribi.exe", 0x01728EA4;
-	uint savecursor: "rabiribi.exe", 0x01728EAC;
-	float artbookactivetime: "rabiribi.exe", 0x01681340, 0x134C;
-	float artbooktimer: "rabiribi.exe", 0x01681340, 0xB504;
+	uint gamestate: "rabiribi.exe", 0x008458BC;
+	uint menustate: "rabiribi.exe", 0x01729EAC;
+	uint savecursor: "rabiribi.exe", 0x01729EB4;
+	float artbookactivetime: "rabiribi.exe", 0x01682348, 0x134C;
+	float artbooktimer: "rabiribi.exe", 0x01682348, 0xB504;
 	
-	uint warphom: "rabiribi.exe", 0x01673050;
-	uint warpfc2: "rabiribi.exe", 0x01673054;
-	byte1664 itemarray: "rabiribi.exe", 0x01671F84;
+	uint warphom: "rabiribi.exe", 0x01674058;
+	uint warpfc2: "rabiribi.exe", 0x0167405C;
+	byte1664 itemarray: "rabiribi.exe", 0x1672F8C;
 }
 
 state("rabiribi", "v1.99t")
