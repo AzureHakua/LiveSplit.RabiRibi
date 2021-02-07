@@ -1,3 +1,35 @@
+state("rabiribi", "v2.00")
+{
+	uint playtime: "rabiribi.exe", 0x01672FB0;
+	uint tplaytime: "rabiribi.exe", 0x01674848;
+	uint runtime: "rabiribi.exe", 0x01673178;
+	uint truntime: "rabiribi.exe", 0x0167484C;
+	
+	uint blackness: "rabiribi.exe", 0x016E3F48;
+	uint minimapstate: "rabiribi.exe", 0x016E49AC; // 0 is bottom, 1 is top
+	uint eventid: "rabiribi.exe", 0x016E3FCC; // 5 is when a boss is defeated
+	
+	uint musicid: "rabiribi.exe", 0x00844888;
+	uint bgfilterid: "rabiribi.exe", 0x01728108; // 0 is default, 6 is alius
+
+	uint mapid: "rabiribi.exe", 0x00D9BF88;
+	float xpos: "rabiribi.exe", 0x01681340, 0x10;
+	float ypos: "rabiribi.exe", 0x01681340, 0x14;
+	
+	uint moneytotal: "rabiribi.exe", 0x016741A4;
+	ushort eggtotal: "rabiribi.exe", 0x01674CAC;
+	
+	uint gamestate: "rabiribi.exe", 0x008448BC;
+	uint menustate: "rabiribi.exe", 0x01728EA4;
+	uint savecursor: "rabiribi.exe", 0x01728EAC;
+	float artbookactivetime: "rabiribi.exe", 0x01681340, 0x134C;
+	float artbooktimer: "rabiribi.exe", 0x01681340, 0xB504;
+	
+	uint warphom: "rabiribi.exe", 0x01673050;
+	uint warpfc2: "rabiribi.exe", 0x01673054;
+	byte1664 itemarray: "rabiribi.exe", 0x01671F84;
+}
+
 state("rabiribi", "v1.99t")
 {
 	uint playtime: "rabiribi.exe", 0x167AF18;
@@ -6,11 +38,11 @@ state("rabiribi", "v1.99t")
 	uint truntime: "rabiribi.exe", 0x167C7B4;
 	
 	uint blackness: "rabiribi.exe", 0x16E7338;
-	uint minimapstate: "rabiribi.exe", 0x16E7D9C; //0 is bottom, 1 is top
-	uint eventid: "rabiribi.exe", 0x16E73BC; //5 is when a boss is defeated
+	uint minimapstate: "rabiribi.exe", 0x16E7D9C; // 0 is bottom, 1 is top
+	uint eventid: "rabiribi.exe", 0x16E73BC; // 5 is when a boss is defeated
 	
 	uint musicid: "rabiribi.exe", 0x84C888;
-	uint bgfilterid: "rabiribi.exe", 0x172B4F8; //0 is default, 6 is alius
+	uint bgfilterid: "rabiribi.exe", 0x172B4F8; // 0 is default, 6 is alius
 
 	uint mapid: "rabiribi.exe", 0xD87FA4;
 	float xpos: "rabiribi.exe", 0x01689290, 0x10;
@@ -38,11 +70,11 @@ state("rabiribi", "v1.65")
 	uint truntime: "rabiribi.exe", 0xD388E4;
 	
 	uint blackness: "rabiribi.exe", 0xA45824;
-	uint minimapstate: "rabiribi.exe", 0xA46274; //0 is bottom, 1 is top
-	uint eventid: "rabiribi.exe", 0xA4589C; //5 is when a boss is defeated
+	uint minimapstate: "rabiribi.exe", 0xA46274; // 0 is bottom, 1 is top
+	uint eventid: "rabiribi.exe", 0xA4589C; // 5 is when a boss is defeated
 	
 	uint musicid: "rabiribi.exe", 0xA46294;
-	uint bgfilterid: "rabiribi.exe", 0xA8AA8C; //0 is default, 6 is alius
+	uint bgfilterid: "rabiribi.exe", 0xA8AA8C; // 0 is default, 6 is alius
 
 	uint mapid: "rabiribi.exe", 0xA908F8;
 	float xpos: "rabiribi.exe", 0x940EE0, 0x0C;
@@ -60,38 +92,6 @@ state("rabiribi", "v1.65")
 	uint warphom: "rabiribi.exe", 0xD370E8;
 	uint warpfc2: "rabiribi.exe", 0xD370EC;
 	byte1664 itemarray: "rabiribi.exe", 0xD3601C;
-}
-
-state("rabiribi", "v2.00")
-{
-	uint playtime: "rabiribi.exe", 0x01672FB0;
-	uint tplaytime: "rabiribi.exe", 0x01674848;
-	uint runtime: "rabiribi.exe", 0x01673178;
-	uint truntime: "rabiribi.exe", 0x0167484C;
-	
-	uint blackness: "rabiribi.exe", 0x016E3F48;
-	uint minimapstate: "rabiribi.exe", 0x016E49AC; //0 is bottom, 1 is top
-	uint eventid: "rabiribi.exe", 0x016E3FCC; //5 is when a boss is defeated
-	
-	uint musicid: "rabiribi.exe", 0x00844888;
-	uint bgfilterid: "rabiribi.exe", 0x01728108; //0 is default, 6 is alius
-
-	uint mapid: "rabiribi.exe", 0x00D9BF88;
-	float xpos: "rabiribi.exe", 0x01681340, 0x10;
-	float ypos: "rabiribi.exe", 0x01681340, 0x14;
-	
-	uint moneytotal: "rabiribi.exe", 0x016741A4;
-	ushort eggtotal: "rabiribi.exe", 0x01674CAC;
-	
-	uint gamestate: "rabiribi.exe", 0x008448BC;
-	uint menustate: "rabiribi.exe", 0x01728EA4;
-	uint savecursor: "rabiribi.exe", 0x01728EAC;
-	float artbookactivetime: "rabiribi.exe", 0x01681340, 0x134C;
-	float artbooktimer: "rabiribi.exe", 0x01681340, 0xB504;
-	
-	uint warphom: "rabiribi.exe", 0x01673050;
-	uint warpfc2: "rabiribi.exe", 0x01673054;
-	byte1664 itemarray: "rabiribi.exe", 0x01671F84;
 }
 
 startup
@@ -138,8 +138,8 @@ startup
 			settings.CurrentDefaultParent = "story";
 				settings.Add("Alius1", true, "Illusion Alius I");
 				settings.Add("Alius2", true, "Illusion Alius II");
-				settings.Add("Alius3", false, "Illusion Alius III");
-				settings.Add("Miru", false, "Miru");
+				settings.Add("Alius3", true, "Illusion Alius III");
+				settings.Add("Miru", true, "Miru");
 				settings.Add("Noah1", false, "Noah");
 				settings.Add("Noah2", false, "Noah 2");
 				settings.Add("Noah3", true, "Noah 3");
@@ -224,7 +224,6 @@ start
 {
 	/*
 		a sharp increase in screen blackness indicates that the game has started
-		this also triggers for starting the game from a file, so it's not perfect
 	*/
 	if((current.savecursor == 0
 		&& old.blackness == 0
@@ -244,7 +243,8 @@ start
 		vars.framecounter = 0;
 		return true; 
 	}
-	//boss practice
+	
+	// boss practice
 	if(settings["practice"]
 		&& !vars.reloading
 		&& (current.minimapstate > old.minimapstate)
@@ -275,7 +275,8 @@ reset
 		vars.framecounter = 0;
 		return true;
 	}
-	//boss practice
+	
+	// boss practice
 	if(settings["practice"] && vars.reloading)
 	{
 		vars.hasSplit = new bool[12];
@@ -298,7 +299,7 @@ split
 	// don't split outside main game state
 	if(current.gamestate != 2) return false;
 	
-	//when the minimap shifts down, it means a boss has been defeated
+	// when the minimap shifts down, it means a boss has been defeated
 	if(!vars.reloading && (old.minimapstate > current.minimapstate))
 	{
 		//Prologue Bosses
@@ -326,7 +327,7 @@ split
 			&& old.musicid == 36
 		){ print("BeachUPRPRC Split"); return true; }
 		
-		//Town Members
+		// Town Members
 		if(settings["Aruraune"]
 			&& (4 <= vars.xtile && vars.xtile <= 7)
 			&& (4 <= vars.ytile && vars.ytile <= 5)
@@ -424,7 +425,7 @@ split
 			&& (3 <= vars.ytile && vars.ytile <= 4)
 		){ print("Vanilla Split"); return true; }
 		
-		//Story Bosses
+		// Story Bosses
 		if(settings["Alius1"]
 			&& (211 <= vars.xtile && vars.xtile <= 214)
 			&& (6 <= vars.ytile && vars.ytile <= 7)
@@ -467,7 +468,8 @@ split
 			&& (36 <= vars.xtile && vars.xtile <= 38)
 			&& vars.ytile == 0
 		){ print("Irisu Split"); return true; }
-		//Misc
+		
+		// Misc
 		if(settings["BigBox"]
 			&& (112 <= vars.xtile && vars.xtile <= 114)
 			&& (15 <= vars.ytile && vars.ytile <= 16)
@@ -479,7 +481,7 @@ split
 		){ print("RainbowMaid Split"); return true; }
 	}
 	
-	//Non-minimap changing bosses
+	// Non-minimap changing bosses
 	if(settings["ForestUPRPRC"]
 		&& (current.musicid == 36 && old.musicid == 36)
 		&& (current.mapid == 1 && old.mapid == 0)
@@ -510,7 +512,8 @@ split
 		&& (current.musicid == 42 && old.musicid == 43)
 		&& !vars.hasSplit[1]
 	){ print("Noah2 Split"); return vars.hasSplit[1] = true; }
-	//Misc
+	
+	// Misc
 	if(settings["Computer"]
 		&& (139 <= vars.xtile && vars.xtile <= 141)
 		&& vars.ytile == 12
@@ -525,7 +528,8 @@ split
 		&& ((version == "1.99t" && old.musicid == 59) || (version != "1.99t" && old.musicid == 40))
 		&& !vars.hasSplit[3]
 	){ print("Sandbag Split"); return vars.hasSplit[3] = true; }
-	//Skips
+	
+	// Skips
 	if(settings["SyaroSkip"]
 		&& vars.xtile == 117
 		&& vars.ytile == 16
@@ -553,7 +557,7 @@ split
 		&& !vars.hasSplit[7]
 	) { print("ArurauneSkip Split"); return vars.hasSplit[7] = true; }
 	
-	//Randomizer
+	// Randomizer
 	if(settings["EasterEgg"]
 		&& (current.eggtotal > vars.maxEggs && vars.framecounter >= refreshRate)
 	){
@@ -579,7 +583,7 @@ split
 		&& old.itemarray[168] == 0
 	){ print("Trophy Split"); return true; }
 	
-	//Misc
+	// Misc
 	if(settings["HomWarp"]
 		&& !vars.reloading
 		&& !vars.hasSplit[8]
@@ -620,7 +624,7 @@ split
 		return vars.hasSplit[10] = true;
 	}
 	
-	//Legacy
+	// Legacy
 	if(settings["PrePrologue"]
 		&& current.eventid == 311 && old.eventid == 0
 	) { print("PrePrologue Split"); return true; }
