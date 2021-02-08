@@ -181,7 +181,7 @@ init
 {
 	if(modules.First().ModuleMemorySize == 0x10CE000)
 		version = "v1.65";
-	else if(modules.First().ModuleMemorySize == 0x01874000)
+	else if(modules.First().ModuleMemorySize == 0x1877000)
 		version = "v2.00";
 	else
 		version = "v1.99t";
