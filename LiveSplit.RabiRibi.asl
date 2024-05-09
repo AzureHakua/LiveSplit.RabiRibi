@@ -1,4 +1,72 @@
-state("rabiribi", "v2.00")
+state("rabiribi", "v2.01")
+{
+	uint playtime: "rabiribi.exe", 0x01673FD0;
+	uint tplaytime: "rabiribi.exe", 0x01675868;
+	uint runtime: "rabiribi.exe", 0x01674198;
+	uint truntime: "rabiribi.exe", 0x0167586C;
+	
+	uint blackness: "rabiribi.exe", 0x016E4F78;
+	uint minimapstate: "rabiribi.exe", 0x016E59DC; // 0 is bottom, 1 is top
+	uint eventid: "rabiribi.exe", 0x016E4FFC; // 5 is when a boss is defeated
+	
+	uint musicid: "rabiribi.exe", 0x00845888;
+	uint bgfilterid: "rabiribi.exe", 0x0172913C; // 0 is default, 6 is alius
+
+	uint mapid: "rabiribi.exe", 0x00D9CF88;
+	float xpos: "rabiribi.exe", 0x01682364, 0x14;
+	float ypos: "rabiribi.exe", 0x01682364, 0x18;
+	
+	uint moneytotal: "rabiribi.exe", 0x016751C4;
+	ushort eggtotal: "rabiribi.exe", 0x01675CCC;
+	
+	uint gamestate: "rabiribi.exe", 0x008458BC;
+	uint menustate: "rabiribi.exe", 0x01729ED8;
+	uint savecursor: "rabiribi.exe", 0x01729EE0;
+	// 0x70C bytes for each entity
+	float artbookactivetime: "rabiribi.exe", 0x01682364, 0x1358;	// 0x70C*2 + 0x540
+	float artbooktimer: "rabiribi.exe", 0x01682364, 0xB56C;		// 0x70C*19 + 0x540
+	
+	uint userita: "rabiribi.exe", 0x01673A34;
+	uint warphom: "rabiribi.exe", 0x01674070;
+	uint warpfc2: "rabiribi.exe", 0x01674074;
+	byte1664 itemarray: "rabiribi.exe", 0x1672FA4;
+}
+
+state("rabiribi", "v2.00Apr")
+{
+	uint playtime: "rabiribi.exe", 0x01672FB8;
+	uint tplaytime: "rabiribi.exe", 0x01674850;
+	uint runtime: "rabiribi.exe", 0x01673180;
+	uint truntime: "rabiribi.exe", 0x01674854;
+	
+	uint blackness: "rabiribi.exe", 0x016E3F58;
+	uint minimapstate: "rabiribi.exe", 0x016E49BC; // 0 is bottom, 1 is top
+	uint eventid: "rabiribi.exe", 0x016E3FDC; // 5 is when a boss is defeated
+	
+	uint musicid: "rabiribi.exe", 0x00844888;
+
+	uint bgfilterid: "rabiribi.exe", 0x01728118; // 0 is default, 6 is alius
+	uint mapid: "rabiribi.exe", 0x00D9BF88;
+	float xpos: "rabiribi.exe", 0x0168134C, 0x10;
+	float ypos: "rabiribi.exe", 0x0168134C, 0x14;
+	
+	uint moneytotal: "rabiribi.exe", 0x016741AC;
+	ushort eggtotal: "rabiribi.exe", 0x01674CB4;
+	
+	uint gamestate: "rabiribi.exe", 0x008448BC;
+	uint menustate: "rabiribi.exe", 0x01728EB4;
+	uint savecursor: "rabiribi.exe", 0x01728EBC;
+	// 0x708 bytes for each entity
+	float artbookactivetime: "rabiribi.exe", 0x0168134C, 0x134C;	// 0x708*2 + 0x53C
+	float artbooktimer: "rabiribi.exe", 0x0168134C, 0xB504;		// 0x708*19 + 0x53C
+	
+	uint userita: "rabiribi.exe", 0x01672A1C;
+	uint warphom: "rabiribi.exe", 0x01673058;
+	uint warpfc2: "rabiribi.exe", 0x0167305C;
+	byte1664 itemarray: "rabiribi.exe", 0x01671F8C;
+}
+
+state("rabiribi", "v2.00Feb")
 {
 	uint playtime: "rabiribi.exe", 0x01673FB8;
 	uint tplaytime: "rabiribi.exe", 0x01675850;
@@ -22,9 +90,11 @@ state("rabiribi", "v2.00")
 	uint gamestate: "rabiribi.exe", 0x008458BC;
 	uint menustate: "rabiribi.exe", 0x01729EAC;
 	uint savecursor: "rabiribi.exe", 0x01729EB4;
-	float artbookactivetime: "rabiribi.exe", 0x01682348, 0x134C;
-	float artbooktimer: "rabiribi.exe", 0x01682348, 0xB504;
+	// 0x708 bytes for each entity
+	float artbookactivetime: "rabiribi.exe", 0x01682348, 0x134C;	// 0x708*2 + 0x53C
+	float artbooktimer: "rabiribi.exe", 0x01682348, 0xB504;		// 0x708*19 + 0x53C
 	
+	uint userita: "rabiribi.exe", 0x01673A1C;
 	uint warphom: "rabiribi.exe", 0x01674058;
 	uint warpfc2: "rabiribi.exe", 0x0167405C;
 	byte1664 itemarray: "rabiribi.exe", 0x1672F8C;
@@ -54,9 +124,11 @@ state("rabiribi", "v1.99t")
 	uint gamestate: "rabiribi.exe", 0x84C8BC;
 	uint menustate: "rabiribi.exe", 0x0172C294;
 	uint savecursor: "rabiribi.exe", 0x0172C29C;
-	float artbookactivetime: "rabiribi.exe", 0x01689290, 0x134C;
-	float artbooktimer: "rabiribi.exe", 0x01689290, 0xB504;
+	// 0x708 bytes for each entity
+	float artbookactivetime: "rabiribi.exe", 0x01689290, 0x134C;	// 0x708*2 + 0x53C
+	float artbooktimer: "rabiribi.exe", 0x01689290, 0xB504;		// 0x708*19 + 0x53C
 	
+	uint userita: "rabiribi.exe", 0x0167A97C;
 	uint warphom: "rabiribi.exe", 0x0167AFB8;
 	uint warpfc2: "rabiribi.exe", 0x0167AFBC;
 	byte1664 itemarray: "rabiribi.exe", 0x01679EEC;
@@ -86,9 +158,11 @@ state("rabiribi", "v1.65")
 	uint gamestate: "rabiribi.exe", 0x4CFB78;
 	uint menustate: "rabiribi.exe", 0xA8B81C;
 	uint savecursor: "rabiribi.exe", 0xA8B824;
+	// TODO: check entity struct size
 	float artbookactivetime: "rabiribi.exe", 0x940EE0, 0x1310;
 	float artbooktimer: "rabiribi.exe", 0x940EE0, 0xB2FC;
 	
+	uint userita: "rabiribi.exe", 0xD36AAC;
 	uint warphom: "rabiribi.exe", 0xD370E8;
 	uint warpfc2: "rabiribi.exe", 0xD370EC;
 	byte1664 itemarray: "rabiribi.exe", 0xD3601C;
@@ -96,6 +170,11 @@ state("rabiribi", "v1.65")
 
 startup
 {
+	vars.hasSplit = new bool[100];
+	vars.maxEggs = 0;
+	vars.framecounter = 0;
+	vars.sidechapter = 0;
+	
 	settings.Add("practice", false, "Practice Mode");
 	settings.SetToolTip("practice", "Practice Mode starts timer on boss and resets on reload. For use with the boss settings below.");
 	settings.Add("runtime", true, "Use T.Runtime");
@@ -157,6 +236,10 @@ startup
 				settings.Add("NoahSkip", true, "Noah Skip");
 				settings.Add("Kotri3Skip", false, "Kotri 3 Skip");
 				settings.Add("ArurauneSkip", false, "Aruraune Skip");
+				settings.Add("VanillaSkip", false, "Vanilla Skip");
+				settings.Add("NieveSkip", false, "Nieve Skip");
+				settings.Add("RitaSkip", false, "Rita Skip");
+				settings.Add("ChocolateSkip", false, "Chocolate Skip");
 			settings.CurrentDefaultParent = "lab";
 				settings.Add("BigBox", false, "Mr. Big Box");
 				settings.Add("RainbowMaid", false, "Rainbow Maid");
@@ -180,11 +263,15 @@ startup
 init
 {
 	if(modules.First().ModuleMemorySize == 0x10CE000)
-		version = "v1.65";
+		version = "v1.65";	// for legacy categories
 	else if(modules.First().ModuleMemorySize == 0x1877000)
-		version = "v2.00";
+		version = "v2.00Feb";	// for TASing
+	else if(modules.First().ModuleMemorySize == 0x1875000)
+		version = "v2.00Apr";	// previous version
+	else if(modules.First().ModuleMemorySize == 0x1870000)
+		version = "v2.01";	// latest version
 	else
-		version = "v1.99t";
+		version = "v1.99t";	// stable version. to be honest we don't need to keep this version anymore
 	
 	
 	refreshRate = 60;
@@ -192,9 +279,6 @@ init
 	vars.ytile = (int)(current.ypos/720);
 	vars.reloading = false;
 	
-	vars.hasSplit = new bool[100];
-	vars.maxEggs = 0;
-	vars.framecounter = 0;
 }
 
 update
@@ -241,6 +325,7 @@ start
 		vars.hasSplit = new bool[100];
 		vars.maxEggs = 0;
 		vars.framecounter = 0;
+		vars.sidechapter = 0;
 		return true; 
 	}
 	
@@ -267,12 +352,15 @@ reset
 			|| (version == "v1.65" && (current.musicid == 45 || current.musicid == 46))
 		)
 	) || (
-		old.artbookactivetime < 60
+		current.gamestate == 12
+		&& old.artbookactivetime < 60
 		&& current.artbookactivetime >= 60
 	)){ 
 		vars.hasSplit = new bool[100];
 		vars.maxEggs = 0;
 		vars.framecounter = 0;
+		vars.sidechapter = 0;
+		print("reset!");
 		return true;
 	}
 	
@@ -281,6 +369,7 @@ reset
 	{
 		vars.hasSplit = new bool[100];
 		vars.reloading = false;
+		print("boss practice reset!");
 		return true;
 	}
 	return false;
@@ -291,13 +380,22 @@ split
 	if(vars.framecounter < 100000) {
 		vars.framecounter++;
 	}
+	if(vars.sidechapter > 0){
+		vars.sidechapter--;
+	}
+	if(current.userita == 1){
+		vars.sidechapter = refreshRate;
+	}
 	vars.xtile_old = vars.xtile;
 	vars.xtile = (int)(current.xpos/1280) + current.mapid * 25;
 	vars.ytile = (int)(current.ypos/720);
 	vars.reloading = current.playtime == 0 || (current.playtime < old.playtime);
 	
-	// don't split outside main game state
+	// skip splits outside main game state
 	if(current.gamestate != 2) return false;
+	
+	// skip splits during side chapter and for 1 second afterwards
+	if(vars.sidechapter > 0) return false;
 	
 	// when the minimap shifts down, it means a boss has been defeated
 	if(!vars.reloading && (old.minimapstate > current.minimapstate))
@@ -556,6 +654,34 @@ split
 		&& current.musicid == 47
 		&& !vars.hasSplit[7]
 	) { print("ArurauneSkip Split"); return vars.hasSplit[7] = true; }
+
+	if(settings["VanillaSkip"]
+		&& (vars.xtile_old == 64 && vars.xtile != 64)
+		&& vars.ytile == 4
+		&& current.musicid == 51
+		&& !vars.hasSplit[15]
+	) { print("VanillaSkip Split"); return vars.hasSplit[15] = true; }
+
+	if(settings["NieveSkip"]
+		&& (vars.xtile_old == 78 && vars.xtile != 78)
+		&& vars.ytile == 3
+		&& current.musicid == 8
+		&& !vars.hasSplit[12]
+	) { print("NieveSkip Split"); return vars.hasSplit[12] = true; }
+	
+	if(settings["RitaSkip"]
+		&& (vars.xtile_old == 87 && vars.xtile != 87)
+		&& vars.ytile == 10
+		&& current.musicid == 34
+		&& !vars.hasSplit[13]
+	) { print("RitaSkip Split"); return vars.hasSplit[13] = true; }
+	
+	if(settings["ChocolateSkip"]
+		&& (vars.xtile_old == 66 && vars.xtile != 66)
+		&& vars.ytile == 14
+		&& current.musicid == 51
+		&& !vars.hasSplit[14]
+	) { print("ChocolateSkip Split"); return vars.hasSplit[14] = true; }
 	
 	// Randomizer
 	if(settings["EasterEgg"]
